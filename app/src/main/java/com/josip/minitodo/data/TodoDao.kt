@@ -16,4 +16,7 @@ interface TodoDao {
 
     @Delete
     suspend fun delete(todo: Todo)
+
+    @Query("SELECT * FROM Todo WHERE id = :id")
+    fun getById(id: Int): Flow<Todo?>
 }

@@ -12,7 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 
 @Composable
-fun MainScreen(viewModel: TodoViewModel) {
+fun MainScreen(viewModel: TodoViewModel, onEditTodo: (Int) -> Unit) {
     val todos by viewModel.todos.collectAsState()
 
     var text by remember { mutableStateOf("") }
@@ -21,6 +21,7 @@ fun MainScreen(viewModel: TodoViewModel) {
     var showDeleteDialog by remember { mutableStateOf(false) }
     var taskToDelete by remember { mutableStateOf<Todo?>(null) }
 
+    var todoToEdit by remember { mutableStateOf<Todo?>(null) }
 
     Column(modifier = Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -47,6 +48,20 @@ fun MainScreen(viewModel: TodoViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        if (todoToEdit != null) {
+            EditTodoForm(
+                todo = todoToEdit!!,
+                onSave = {
+                    viewModel.updateTodo(it)
+                    todoToEdit = null
+                },
+                onCancel = {
+                    todoToEdit = null
+                }
+            )
+            return@Column
+        }
+
         todos.forEach { todo ->
             Row(
                 modifier = Modifier
@@ -60,11 +75,11 @@ fun MainScreen(viewModel: TodoViewModel) {
                 )
                 Row {
                     Button(onClick = {
-                        val updated = todo.copy(isImportant = !todo.isImportant)
-                        viewModel.updateTodo(updated)
+                        onEditTodo(todo.id)
                     }) {
-                        Text("Toggle")
+                        Text("Uredi")
                     }
+
                     Spacer(Modifier.width(8.dp))
 
                     IconButton(onClick = {

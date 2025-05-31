@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.josip.minitodo.data.Todo
 import com.josip.minitodo.data.TodoDao
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -28,5 +29,9 @@ class TodoViewModel(private val dao: TodoDao) : ViewModel() {
         viewModelScope.launch {
             dao.update(todo)
         }
+    }
+
+    fun getTodoById(id: Int): Flow<Todo?> {
+        return dao.getById(id)
     }
 }
