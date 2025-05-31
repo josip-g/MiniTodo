@@ -3,45 +3,21 @@ package com.josip.minitodo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.josip.minitodo.ui.theme.MiniTodoTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.josip.minitodo.data.TodoDatabase
+import com.josip.minitodo.ui.MainScreen
+import com.josip.minitodo.viewmodel.TodoViewModel
+import com.josip.minitodo.viewmodel.TodoViewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        val dao = TodoDatabase.getDatabase(this).todoDao()
+        val factory = TodoViewModelFactory(dao)
+
         setContent {
-            MiniTodoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            val viewModel: TodoViewModel = viewModel(factory = factory)
+            MainScreen(viewModel)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MiniTodoTheme {
-        Greeting("Android")
     }
 }
