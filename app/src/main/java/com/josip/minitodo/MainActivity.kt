@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.josip.minitodo.data.TodoDatabase
+import com.josip.minitodo.ui.AddTodoScreen
 import com.josip.minitodo.ui.EditTodoScreen
 import com.josip.minitodo.ui.MainScreen
 import com.josip.minitodo.viewmodel.TodoViewModel
@@ -27,9 +28,15 @@ class MainActivity : ComponentActivity() {
 
             NavHost(navController, startDestination = "main") {
                 composable("main") {
-                    MainScreen(viewModel, onEditTodo = { todoId ->
-                        navController.navigate("edit/$todoId")
-                    })
+                    MainScreen(
+                        viewModel = viewModel,
+                        onEditTodo = { todoId ->
+                            navController.navigate("edit/$todoId")
+                        },
+                        onAddTodo = {
+                            navController.navigate("add")
+                        }
+                    )
                 }
 
                 composable("edit/{todoId}", arguments = listOf(
@@ -37,6 +44,12 @@ class MainActivity : ComponentActivity() {
                 )) { backStackEntry ->
                     val todoId = backStackEntry.arguments?.getInt("todoId") ?: return@composable
                     EditTodoScreen(todoId, viewModel, onNavigateBack = {
+                        navController.popBackStack()
+                    })
+                }
+
+                composable("add") {
+                    AddTodoScreen(viewModel, onNavigateBack = {
                         navController.popBackStack()
                     })
                 }

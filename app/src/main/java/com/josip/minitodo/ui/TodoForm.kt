@@ -24,16 +24,19 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 
 @Composable
-fun EditTodoForm(
-    todo: Todo,
-    onSave: (Todo) -> Unit,
+fun TodoForm(
+    initialTodo: Todo? = null,
+    onSubmit: (Todo) -> Unit,
     onCancel: () -> Unit
 ) {
-    var text by remember { mutableStateOf(todo.text) }
-    var important by remember { mutableStateOf(todo.isImportant) }
+    var text by remember { mutableStateOf(initialTodo?.text ?: "") }
+    var important by remember { mutableStateOf(initialTodo?.isImportant ?: false) }
 
     Column(modifier = Modifier.padding(16.dp)) {
-        Text("Uredi zadatak", style = MaterialTheme.typography.titleLarge)
+        Text(
+            text = if (initialTodo == null) "Novi zadatak" else "Uredi zadatak",
+            style = MaterialTheme.typography.titleLarge
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -59,7 +62,9 @@ fun EditTodoForm(
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
                 if (text.isNotBlank()) {
-                    onSave(todo.copy(text = text, isImportant = important))
+                    val todo = initialTodo?.copy(text = text, isImportant = important)
+                        ?: Todo(text = text, isImportant = important)
+                    onSubmit(todo)
                 }
             }) {
                 Text("Spremi")
