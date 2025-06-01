@@ -1,9 +1,6 @@
 package com.josip.minitodo.ui
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.collectAsState
 import com.josip.minitodo.viewmodel.TodoViewModel
 
 @Composable

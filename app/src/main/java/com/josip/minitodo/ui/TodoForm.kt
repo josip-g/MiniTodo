@@ -34,7 +34,7 @@ fun TodoForm(
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
-            text = if (initialTodo == null) "Novi zadatak" else "Uredi zadatak",
+            text = if (initialTodo == null) "New todo" else "Edit todo",
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -43,7 +43,7 @@ fun TodoForm(
         TextField(
             value = text,
             onValueChange = { text = it },
-            label = { Text("Zadatak") },
+            label = { Text("Todo") },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -54,7 +54,7 @@ fun TodoForm(
                 checked = important,
                 onCheckedChange = { important = it }
             )
-            Text("Važno")
+            Text("Important")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -67,11 +67,11 @@ fun TodoForm(
                     onSubmit(todo)
                 }
             }) {
-                Text("Spremi")
+                Text("Save")
             }
 
             OutlinedButton(onClick = onCancel) {
-                Text("Odustani")
+                Text("Cancel")
             }
         }
     }

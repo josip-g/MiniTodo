@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,8 +47,8 @@ fun MainScreen(
                     )
 
                     Row {
-                        Button(onClick = { onEditTodo(todo.id) }) {
-                            Text("Uredi")
+                        IconButton(onClick = { onEditTodo(todo.id) }) {
+                            Icon(Icons.Default.Edit, contentDescription = "Edit")
                         }
 
                         Spacer(modifier = Modifier.width(8.dp))
@@ -56,7 +57,7 @@ fun MainScreen(
                             taskToDelete = todo
                             showDeleteDialog = true
                         }) {
-                            Icon(Icons.Default.Delete, contentDescription = "Obriši")
+                            Icon(Icons.Default.Delete, contentDescription = "Delete")
                         }
                     }
                 }
@@ -70,7 +71,7 @@ fun MainScreen(
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Dodaj zadatak")
+            Icon(Icons.Default.Add, contentDescription = "Add task")
         }
 
         // Delete confirmation dialog
@@ -80,15 +81,15 @@ fun MainScreen(
                     showDeleteDialog = false
                     taskToDelete = null
                 },
-                title = { Text("Obrisati zadatak?") },
-                text = { Text("Jesi siguran da želiš obrisati \"${taskToDelete!!.text}\"?") },
+                title = { Text("Delete task?") },
+                text = { Text("Are you sure you want to delete the task \"${taskToDelete!!.text}\"?") },
                 confirmButton = {
                     TextButton(onClick = {
                         viewModel.deleteTodo(taskToDelete!!)
                         showDeleteDialog = false
                         taskToDelete = null
                     }) {
-                        Text("Obriši")
+                        Text("Delete")
                     }
                 },
                 dismissButton = {
@@ -96,7 +97,7 @@ fun MainScreen(
                         showDeleteDialog = false
                         taskToDelete = null
                     }) {
-                        Text("Odustani")
+                        Text("Cancel")
                     }
                 }
             )
