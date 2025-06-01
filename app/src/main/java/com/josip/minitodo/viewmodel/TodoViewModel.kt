@@ -13,9 +13,9 @@ class TodoViewModel(private val dao: TodoDao) : ViewModel() {
     val todos = dao.getAll()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun addTodo(text: String, important: Boolean) {
+    fun addTodo(text: String, important: Boolean, createdAt: Long, updatedAt: Long) {
         viewModelScope.launch {
-            dao.insert(Todo(text = text, isImportant = important))
+            dao.insert(Todo(text = text, isImportant = important, createdAt = createdAt, updatedAt = updatedAt))
         }
     }
 
@@ -27,7 +27,8 @@ class TodoViewModel(private val dao: TodoDao) : ViewModel() {
 
     fun updateTodo(todo: Todo) {
         viewModelScope.launch {
-            dao.update(todo)
+            val updatedTodo = todo.copy(updatedAt = System.currentTimeMillis())
+            dao.update(updatedTodo)
         }
     }
 

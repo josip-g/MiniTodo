@@ -10,7 +10,7 @@ fun AddTodoScreen(
 ) {
     TodoForm(
         onSubmit = { newTodo ->
-            viewModel.addTodo(newTodo.text, newTodo.isImportant)
+            viewModel.addTodo(newTodo.text, newTodo.isImportant, newTodo.createdAt, newTodo.updatedAt)
             onNavigateBack()
         },
         onCancel = onNavigateBack

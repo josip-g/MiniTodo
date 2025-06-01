@@ -22,6 +22,8 @@ import com.josip.minitodo.data.Todo
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun TodoForm(
@@ -31,6 +33,8 @@ fun TodoForm(
 ) {
     var text by remember { mutableStateOf(initialTodo?.text ?: "") }
     var important by remember { mutableStateOf(initialTodo?.isImportant ?: false) }
+    val createdAt by remember { mutableStateOf(initialTodo?.createdAt ?: System.currentTimeMillis()) }
+    val updatedAt by remember { mutableStateOf(initialTodo?.updatedAt ?: System.currentTimeMillis()) }
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
@@ -59,11 +63,32 @@ fun TodoForm(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        Text(
+            text = "Created At: ${formatTimestamp(createdAt)}",
+            style = MaterialTheme.typography.bodySmall
+        )
+
+        Text(
+            text = "Last update: ${formatTimestamp(updatedAt)}",
+            style = MaterialTheme.typography.bodySmall
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
                 if (text.isNotBlank()) {
-                    val todo = initialTodo?.copy(text = text, isImportant = important)
-                        ?: Todo(text = text, isImportant = important)
+                    val now = System.currentTimeMillis()
+                    val todo = initialTodo?.copy(
+                        text = text,
+                        isImportant = important,
+                        updatedAt = now
+                    ) ?: Todo(
+                        text = text,
+                        isImportant = important,
+                        createdAt = now,
+                        updatedAt = now
+                    )
                     onSubmit(todo)
                 }
             }) {
@@ -75,4 +100,9 @@ fun TodoForm(
             }
         }
     }
+}
+
+fun formatTimestamp(timestamp: Long): String {
+    val sdf = SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault())
+    return sdf.format(Date(timestamp))
 }
