@@ -14,17 +14,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.data.Todo
+import com.josip.minitodo.viewmodel.NoteViewModel
 import com.josip.minitodo.viewmodel.TodoViewModel
 
 @Composable
 fun MainScreen(
     viewModel: TodoViewModel,
+    viewModelNotes: NoteViewModel,
     onEditTodo: (Int) -> Unit,
     onAddTodo: () -> Unit,
 //    onEditNote: (Int) -> Unit,
     onAddNote: () -> Unit
 ) {
     val todos by viewModel.todos.collectAsState()
+    val notes by viewModelNotes.notes.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
     var taskToDelete by remember { mutableStateOf<Todo?>(null) }
 
@@ -65,6 +68,34 @@ fun MainScreen(
                     }
                 }
             }
+
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
+                Text("Notes", style = MaterialTheme.typography.titleMedium)
+            }
+
+            items(notes) { note ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(text = note.content)
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Created: ${formatTimestamp(note.createdAt)}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                        Text(
+                            text = "Updated: ${formatTimestamp(note.updatedAt)}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
+            }
+
         }
 
         // Floating Add Button at bottom center
@@ -115,6 +146,5 @@ fun MainScreen(
                 }
             )
         }
-
     }
 }
