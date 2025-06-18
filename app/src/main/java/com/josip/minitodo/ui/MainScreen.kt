@@ -23,8 +23,7 @@ fun MainScreen(
     viewModelNotes: NoteViewModel,
     onEditTodo: (Int) -> Unit,
     onAddTodo: () -> Unit,
-//    onEditNote: (Int) -> Unit,
-    onAddNote: () -> Unit
+    onGetNotes: () -> Unit,
 ) {
     val todos by viewModel.todos.collectAsState()
     val notes by viewModelNotes.notes.collectAsState()
@@ -36,7 +35,7 @@ fun MainScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(todos) { todo ->
@@ -68,34 +67,6 @@ fun MainScreen(
                     }
                 }
             }
-
-            item {
-                Spacer(modifier = Modifier.height(24.dp))
-                Text("Notes", style = MaterialTheme.typography.titleMedium)
-            }
-
-            items(notes) { note ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(text = note.content)
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = "Created: ${formatTimestamp(note.createdAt)}",
-                            style = MaterialTheme.typography.labelSmall
-                        )
-                        Text(
-                            text = "Updated: ${formatTimestamp(note.updatedAt)}",
-                            style = MaterialTheme.typography.labelSmall
-                        )
-                    }
-                }
-            }
-
         }
 
         // Floating Add Button at bottom center
@@ -110,7 +81,7 @@ fun MainScreen(
 
         // Floating Add new Note Button at bottom center
         FloatingActionButton(
-            onClick = onAddNote,
+            onClick = onGetNotes,
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(bottom = 24.dp, start = 24.dp)

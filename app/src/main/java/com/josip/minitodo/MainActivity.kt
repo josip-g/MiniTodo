@@ -14,6 +14,7 @@ import com.josip.minitodo.ui.AddTodoScreen
 import com.josip.minitodo.ui.AddNoteScreen
 import com.josip.minitodo.ui.EditTodoScreen
 import com.josip.minitodo.ui.MainScreen
+import com.josip.minitodo.ui.NotesScreen
 import com.josip.minitodo.viewmodel.NoteViewModel
 import com.josip.minitodo.viewmodel.NoteViewModelFactory
 import com.josip.minitodo.viewmodel.TodoViewModel
@@ -43,8 +44,8 @@ class MainActivity : ComponentActivity() {
                         onAddTodo = {
                             navController.navigate("add")
                         },
-                        onAddNote = {
-                            navController.navigate("addnote")
+                        onGetNotes = {
+                            navController.navigate("getnotes")
                         },
                     )
                 }
@@ -69,8 +70,17 @@ class MainActivity : ComponentActivity() {
                         navController.popBackStack()
                     })
                 }
+
+                composable("getnotes") {
+                    NotesScreen(
+                        viewModelNotes = viewModelNote,
+                        onAddNote = {
+                            navController.navigate("addnote")
+                        }
+                    )
+                }
+
             }
         }
-
     }
 }

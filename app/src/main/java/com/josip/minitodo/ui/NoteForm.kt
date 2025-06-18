@@ -27,9 +27,9 @@ fun NoteForm(
             label = { Text("Unesi bilješku") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp),
+                .weight(1f),
             singleLine = false,
-            maxLines = 10
+            maxLines = Int.MAX_VALUE
         )
 
         Spacer(modifier = Modifier.height(24.dp))
