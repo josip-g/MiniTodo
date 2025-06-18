@@ -14,19 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.data.Todo
-import com.josip.minitodo.viewmodel.NoteViewModel
 import com.josip.minitodo.viewmodel.TodoViewModel
 
 @Composable
 fun MainScreen(
     viewModel: TodoViewModel,
-    viewModelNotes: NoteViewModel,
     onEditTodo: (Int) -> Unit,
     onAddTodo: () -> Unit,
     onGetNotes: () -> Unit,
 ) {
     val todos by viewModel.todos.collectAsState()
-    val notes by viewModelNotes.notes.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
     var taskToDelete by remember { mutableStateOf<Todo?>(null) }
 
@@ -69,7 +66,7 @@ fun MainScreen(
             }
         }
 
-        // Floating Add Button at bottom center
+        // Floating Add Button
         FloatingActionButton(
             onClick = onAddTodo,
             modifier = Modifier
@@ -79,7 +76,7 @@ fun MainScreen(
             Icon(Icons.Default.AddTask, contentDescription = "Add task")
         }
 
-        // Floating Add new Note Button at bottom center
+        // Floating Get Notes Button
         FloatingActionButton(
             onClick = onGetNotes,
             modifier = Modifier

@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
                 composable("main") {
                     MainScreen(
                         viewModel = viewModel,
-                        viewModelNotes = viewModelNote,
                         onEditTodo = { todoId ->
                             navController.navigate("edit/$todoId")
                         },
