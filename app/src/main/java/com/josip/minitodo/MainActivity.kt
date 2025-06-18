@@ -9,8 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.josip.minitodo.data.TodoDatabase
-import com.josip.minitodo.data.NoteDatabase
+import com.josip.minitodo.data.AppDatabase
 import com.josip.minitodo.ui.AddTodoScreen
 import com.josip.minitodo.ui.AddNoteScreen
 import com.josip.minitodo.ui.EditTodoScreen
@@ -23,8 +22,8 @@ import com.josip.minitodo.viewmodel.TodoViewModelFactory
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dao = TodoDatabase.getDatabase(this).todoDao()
-        val daoNote = NoteDatabase.getDatabase(this).noteDao()
+        val dao = AppDatabase.getDatabase(this).todoDao()
+        val daoNote = AppDatabase.getDatabase(this).noteDao()
         val factory = TodoViewModelFactory(dao)
         val factoryNote = NoteViewModelFactory(daoNote)
 
