@@ -33,10 +33,13 @@ fun NoteForm(
 
             // Prikaži Delete samo ako se uređuje postojeca bilješka
             if (initialNote != null) {
-                IconButton(onClick = { onDelete?.invoke(initialNote) }) {
+                IconButton(
+                    onClick = { onDelete?.invoke(initialNote) },
+                    modifier = Modifier.padding(start = 8.dp)
+                ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete",
+                        contentDescription = "Delete note",
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
