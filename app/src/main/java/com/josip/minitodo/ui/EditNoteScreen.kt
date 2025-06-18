@@ -31,12 +31,16 @@ fun EditNoteScreen(
 
     note?.let {
         NoteForm(
-            initialNote = note!!,
+            initialNote = it,
             onSave = { updatedNote ->
                 viewModel.updateNote(updatedNote)
                 onNavigateBack()
             },
-            onCancel = onNavigateBack
+            onCancel = onNavigateBack,
+            onDelete = { noteToDelete ->
+                viewModel.deleteNote(noteToDelete)
+                onNavigateBack()
+            }
         )
     } ?: run {
         Text("Učitavanje...")

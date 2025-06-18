@@ -59,7 +59,11 @@ fun MainScreen(
                             taskToDelete = todo
                             showDeleteDialog = true
                         }) {
-                            Icon(Icons.Default.Delete, contentDescription = "Delete")
+                            Icon(
+                                Icons.Default.Delete,
+                                contentDescription = "Delete",
+                                tint = MaterialTheme.colorScheme.error
+                            )
                         }
                     }
                 }

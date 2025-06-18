@@ -1,6 +1,8 @@
 package com.josip.minitodo.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -11,7 +13,8 @@ import com.josip.minitodo.data.Note
 fun NoteForm(
     initialNote: Note? = null,
     onSave: (Note) -> Unit,
-    onCancel: () -> Unit
+    onCancel: () -> Unit,
+    onDelete: ((Note) -> Unit)? = null
 ) {
     var noteText by remember { mutableStateOf(initialNote?.content ?: "") }
 
@@ -19,7 +22,26 @@ fun NoteForm(
         .fillMaxSize()
         .padding(16.dp)) {
 
-        Text(text = if (initialNote == null) "New note" else "Nova bilješka", style = MaterialTheme.typography.titleLarge)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = if (initialNote == null) "Nova bilješka" else "Uredi bilješku",
+                style = MaterialTheme.typography.titleLarge
+            )
+
+            // Prikaži Delete samo ako se uređuje postojeca bilješka
+            if (initialNote != null) {
+                IconButton(onClick = { onDelete?.invoke(initialNote) }) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
