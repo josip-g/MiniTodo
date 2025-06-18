@@ -1,15 +1,60 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# === Gradle files ===
+.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# === Local configuration ===
 local.properties
+.idea/deploymentTargetSelector.xml
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/misc.xml
+.idea/gradle.xml
+
+# === OS-specific ===
+.DS_Store
+*.swp
+*.swo
+*.iml
+*.log
+Thumbs.db
+
+# === Signing keys ===
+**/debug.keystore
+**/*.jks
+**/keystore.properties
+
+# === Android Studio auto-generated ===
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.ap_
+
+# === IntelliJ run configurations ===
+.idea/runConfigurations/
+
+# === Room DB (runtime, but for debug builds only) ===
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# === Jetpack Compose previews ===
+.idea/compose-previews/
+
+# === Firebase / Google Services auto-gen ===
+google-services.json
+firebase-debug.log
+
+# === Kotlin specific ===
+*.class
+*.kotlin_module
+
+# === Misc ===
+*.tmp
+*.temp
