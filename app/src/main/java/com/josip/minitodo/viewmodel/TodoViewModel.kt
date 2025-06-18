@@ -10,25 +10,25 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class TodoViewModel(private val dao: TodoDao) : ViewModel() {
-    val todos = dao.getAll()
+    val todos = dao.getAllTodos()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun addTodo(text: String, important: Boolean, createdAt: Long, updatedAt: Long) {
         viewModelScope.launch {
-            dao.insert(Todo(text = text, isImportant = important, createdAt = createdAt, updatedAt = updatedAt))
+            dao.insertTodo(Todo(text = text, isImportant = important, createdAt = createdAt, updatedAt = updatedAt))
         }
     }
 
     fun deleteTodo(todo: Todo) {
         viewModelScope.launch {
-            dao.delete(todo)
+            dao.deleteTodo(todo)
         }
     }
 
     fun updateTodo(todo: Todo) {
         viewModelScope.launch {
             val updatedTodo = todo.copy(updatedAt = System.currentTimeMillis())
-            dao.update(updatedTodo)
+            dao.updateTodo(updatedTodo)
         }
     }
 

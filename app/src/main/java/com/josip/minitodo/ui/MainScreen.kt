@@ -5,9 +5,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.NoteAlt
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +20,9 @@ import com.josip.minitodo.viewmodel.TodoViewModel
 fun MainScreen(
     viewModel: TodoViewModel,
     onEditTodo: (Int) -> Unit,
-    onAddTodo: () -> Unit
+    onAddTodo: () -> Unit,
+//    onEditNote: (Int) -> Unit,
+    onAddNote: () -> Unit
 ) {
     val todos by viewModel.todos.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -68,10 +71,20 @@ fun MainScreen(
         FloatingActionButton(
             onClick = onAddTodo,
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 24.dp)
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 24.dp, end = 24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add task")
+            Icon(Icons.Default.AddTask, contentDescription = "Add task")
+        }
+
+        // Floating Add new Note Button at bottom center
+        FloatingActionButton(
+            onClick = onAddNote,
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(bottom = 24.dp, start = 24.dp)
+        ) {
+            Icon(Icons.Default.NoteAlt, contentDescription = "Add note")
         }
 
         // Delete confirmation dialog
@@ -102,5 +115,6 @@ fun MainScreen(
                 }
             )
         }
+
     }
 }
