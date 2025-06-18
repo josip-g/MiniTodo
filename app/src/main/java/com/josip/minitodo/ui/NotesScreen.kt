@@ -25,11 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.viewmodel.NoteViewModel
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.foundation.gestures.detectTapGestures
 
 @Composable
 fun NotesScreen(
     viewModelNotes: NoteViewModel,
     onAddNote: () -> Unit,
+    onEditNote: (Int) -> Unit,
 ) {
     val notes by viewModelNotes.notes.collectAsState()
 
@@ -45,7 +48,14 @@ fun NotesScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                        .padding(vertical = 4.dp)
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onLongPress = {
+                                    onEditNote(note.id)
+                                }
+                            )
+                        },
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
@@ -57,6 +67,10 @@ fun NotesScreen(
                         )
                         Text(
                             text = "Updated: ${formatTimestamp(note.updatedAt)}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                        Text(
+                            text = "Id: ${note.id.toLong()}",
                             style = MaterialTheme.typography.labelSmall
                         )
                     }

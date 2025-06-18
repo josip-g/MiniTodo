@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.josip.minitodo.data.AppDatabase
 import com.josip.minitodo.ui.AddTodoScreen
 import com.josip.minitodo.ui.AddNoteScreen
+import com.josip.minitodo.ui.EditNoteScreen
 import com.josip.minitodo.ui.EditTodoScreen
 import com.josip.minitodo.ui.MainScreen
 import com.josip.minitodo.ui.NotesScreen
@@ -70,12 +71,24 @@ class MainActivity : ComponentActivity() {
                     })
                 }
 
+                composable("editnote/{noteId}", arguments = listOf(
+                    navArgument("noteId") { type = NavType.IntType }
+                )) { backStackEntry ->
+                    val noteId = backStackEntry.arguments?.getInt("noteId") ?: return@composable
+                    EditNoteScreen(noteId, viewModelNote, onNavigateBack = {
+                        navController.popBackStack()
+                    })
+                }
+
                 composable("getnotes") {
                     NotesScreen(
                         viewModelNotes = viewModelNote,
                         onAddNote = {
                             navController.navigate("addnote")
-                        }
+                        },
+                        onEditNote = { noteId ->
+                            navController.navigate("editnote/$noteId")
+                        },
                     )
                 }
 

@@ -5,19 +5,21 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.josip.minitodo.data.Note
 
 @Composable
 fun NoteForm(
-    onSave: (String) -> Unit,
+    initialNote: Note? = null,
+    onSave: (Note) -> Unit,
     onCancel: () -> Unit
 ) {
-    var noteText by remember { mutableStateOf("") }
+    var noteText by remember { mutableStateOf(initialNote?.content ?: "") }
 
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)) {
 
-        Text(text = "Nova bilješka", style = MaterialTheme.typography.titleLarge)
+        Text(text = if (initialNote == null) "New note" else "Nova bilješka", style = MaterialTheme.typography.titleLarge)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -35,7 +37,20 @@ fun NoteForm(
         Spacer(modifier = Modifier.height(24.dp))
 
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Button(onClick = { onSave(noteText) }, enabled = noteText.isNotBlank()) {
+            Button(onClick = {
+                if (noteText.isNotBlank()) {
+                    val now = System.currentTimeMillis()
+                    val note = initialNote?.copy(
+                        content = noteText,
+                        updatedAt = now
+                    ) ?: Note(
+                        content = noteText,
+                        createdAt = now,
+                        updatedAt = now
+                    )
+                    onSave(note)
+                } }, enabled = noteText.isNotBlank())
+            {
                 Text("Spremi")
             }
             OutlinedButton(onClick = onCancel) {

@@ -13,7 +13,7 @@ fun AddNoteScreen(
         onSave = { newNote ->
             viewModel.addNote(
                 Note(
-                    content = newNote,
+                    content = newNote.content,
                     createdAt = System.currentTimeMillis(),
                     updatedAt = System.currentTimeMillis()
                 )
