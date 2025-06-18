@@ -48,6 +48,19 @@ fun NoteForm(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        if (initialNote != null) {
+            Text(
+                text = "Created: ${formatTimestamp(initialNote.createdAt)}",
+                style = MaterialTheme.typography.labelSmall
+            )
+            Text(
+                text = "Updated: ${formatTimestamp(initialNote.updatedAt)}",
+                style = MaterialTheme.typography.labelSmall
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         OutlinedTextField(
             value = noteText,
             onValueChange = { noteText = it },

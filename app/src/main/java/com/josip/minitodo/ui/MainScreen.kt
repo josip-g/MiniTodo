@@ -50,7 +50,11 @@ fun MainScreen(
 
                     Row {
                         IconButton(onClick = { onEditTodo(todo.id) }) {
-                            Icon(Icons.Default.Edit, contentDescription = "Edit")
+                            Icon(
+                                Icons.Default.Edit,
+                                contentDescription = "Edit",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                         }
 
                         Spacer(modifier = Modifier.width(8.dp))
