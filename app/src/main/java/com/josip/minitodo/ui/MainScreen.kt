@@ -36,38 +36,53 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(todos) { todo ->
-                Row(
+                Card(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(4.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                        .fillMaxWidth(),
+                    shape = MaterialTheme.shapes.medium,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
-                    Text(
-                        text = (if (todo.isImportant) "❗ " else "") + todo.text,
-                        modifier = Modifier.weight(1f)
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 6.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = (if (todo.isImportant) "❗ " else "") + todo.text,
+                            maxLines = 1,
+                            modifier = Modifier.weight(1f)
+                        )
 
-                    Row {
-                        IconButton(onClick = { onEditTodo(todo.id) }) {
-                            Icon(
-                                Icons.Default.Edit,
-                                contentDescription = "Edit",
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
+                        Row {
+                            IconButton(
+                                onClick = { onEditTodo(todo.id) },
+                                modifier = Modifier.size(36.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.Edit,
+                                    contentDescription = "Edit",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
 
-                        Spacer(modifier = Modifier.width(8.dp))
-
-                        IconButton(onClick = {
-                            taskToDelete = todo
-                            showDeleteDialog = true
-                        }) {
-                            Icon(
-                                Icons.Default.Delete,
-                                contentDescription = "Delete",
-                                tint = MaterialTheme.colorScheme.error
-                            )
+                            IconButton(
+                                onClick = {
+                                    taskToDelete = todo
+                                    showDeleteDialog = true
+                                },
+                                modifier = Modifier.size(36.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.Delete,
+                                    contentDescription = "Delete",
+                                    tint = MaterialTheme.colorScheme.error
+                                )
+                            }
                         }
                     }
                 }
