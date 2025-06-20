@@ -48,6 +48,7 @@ fun TodoForm(
             value = text,
             onValueChange = { text = it },
             label = { Text("Todo") },
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
 
