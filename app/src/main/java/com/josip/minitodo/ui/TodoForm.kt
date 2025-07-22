@@ -22,6 +22,7 @@ import com.josip.minitodo.data.Todo
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -66,12 +67,14 @@ fun TodoForm(
 
         Text(
             text = "Created At: ${formatTimestamp(createdAt)}",
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.Gray
         )
 
         Text(
             text = "Last update: ${formatTimestamp(updatedAt)}",
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.Gray
         )
 
         Spacer(modifier = Modifier.height(16.dp))
