@@ -16,6 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.data.Todo
 import com.josip.minitodo.viewmodel.TodoViewModel
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import com.josip.minitodo.R
 
 @Composable
 fun MainScreen(
@@ -34,12 +37,14 @@ fun MainScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.primary)
-                .padding(16.dp)
+                .padding(0.dp)
         ) {
-            Text(
-                text = "MiniTodo",
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onPrimary
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = "Mini Todo Logo",
+                modifier = Modifier
+                    .height(64.dp)
+                    .width(64.dp)
             )
         }
 
