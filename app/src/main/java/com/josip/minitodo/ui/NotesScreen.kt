@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.josip.minitodo.viewmodel.NoteViewModel
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun NotesScreen(
@@ -66,15 +67,18 @@ fun NotesScreen(
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Created: ${formatTimestamp(note.createdAt)}",
-                            style = MaterialTheme.typography.labelSmall
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.Gray
                         )
                         Text(
                             text = "Updated: ${formatTimestamp(note.updatedAt)}",
-                            style = MaterialTheme.typography.labelSmall
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.Gray
                         )
                         Text(
                             text = "Id: ${note.id.toLong()}",
-                            style = MaterialTheme.typography.labelSmall
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.Gray
                         )
                     }
                 }

@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.data.Note
 
@@ -51,11 +52,13 @@ fun NoteForm(
         if (initialNote != null) {
             Text(
                 text = "Created: ${formatTimestamp(initialNote.createdAt)}",
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelSmall,
+                color = Color.Gray
             )
             Text(
                 text = "Updated: ${formatTimestamp(initialNote.updatedAt)}",
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelSmall,
+                color = Color.Gray
             )
         }
 
