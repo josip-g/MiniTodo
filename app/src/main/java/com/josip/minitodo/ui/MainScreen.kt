@@ -1,5 +1,6 @@
 package com.josip.minitodo.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -27,23 +28,36 @@ fun MainScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var taskToDelete by remember { mutableStateOf<Todo?>(null) }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Scrollable list of todos
+    Column(modifier = Modifier.fillMaxSize()) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primary)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "MiniTodo",
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+        }
+
+        // Todos List
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
+                .weight(1f)
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(todos) { todo ->
                 Card(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                    )
                 ) {
                     Row(
                         modifier = Modifier
@@ -88,8 +102,10 @@ fun MainScreen(
                 }
             }
         }
+    }
 
-        // Floating Add Button
+    // Floating buttons
+    Box(modifier = Modifier.fillMaxSize()) {
         FloatingActionButton(
             onClick = onAddTodo,
             modifier = Modifier
@@ -99,7 +115,6 @@ fun MainScreen(
             Icon(Icons.Default.AddTask, contentDescription = "Add task")
         }
 
-        // Floating Get Notes Button
         FloatingActionButton(
             onClick = onGetNotes,
             modifier = Modifier
@@ -109,7 +124,6 @@ fun MainScreen(
             Icon(Icons.Default.NoteAlt, contentDescription = "Add note")
         }
 
-        // Delete confirmation dialog
         if (showDeleteDialog && taskToDelete != null) {
             AlertDialog(
                 onDismissRequest = {
