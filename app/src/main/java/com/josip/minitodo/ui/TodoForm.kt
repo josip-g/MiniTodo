@@ -106,7 +106,8 @@ fun TodoForm(
                         onSubmit(todo)
                     }
                 },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                enabled = text.isNotBlank()
             ) {
                 Text("Save")
             }
