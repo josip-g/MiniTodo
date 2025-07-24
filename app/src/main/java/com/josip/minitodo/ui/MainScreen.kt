@@ -33,19 +33,20 @@ fun MainScreen(
 
     Column(modifier = Modifier.fillMaxSize()) {
 
-        Box(
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.primary)
+                .statusBarsPadding()
                 .padding(0.dp)
         ) {
+            val logoSize = maxWidth * 0.15f // 15% of screen width
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Mini Todo Logo",
                 modifier = Modifier
-                    .height(64.dp)
-                    .width(64.dp)
-                    .statusBarsPadding()
+                    .width(logoSize)
+                    .aspectRatio(1f) // to remain square
             )
         }
 
