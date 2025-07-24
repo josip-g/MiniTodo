@@ -45,6 +45,7 @@ fun MainScreen(
                 modifier = Modifier
                     .height(64.dp)
                     .width(64.dp)
+                    .statusBarsPadding()
             )
         }
 
@@ -116,6 +117,7 @@ fun MainScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 24.dp, end = 24.dp)
+                .navigationBarsPadding() // prevents key overlap
         ) {
             Icon(Icons.Default.AddTask, contentDescription = "Add task")
         }
@@ -125,6 +127,7 @@ fun MainScreen(
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(bottom = 24.dp, start = 24.dp)
+                .navigationBarsPadding()
         ) {
             Icon(Icons.Default.NoteAlt, contentDescription = "Add note")
         }

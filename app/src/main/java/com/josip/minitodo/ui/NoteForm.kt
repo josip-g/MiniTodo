@@ -19,10 +19,12 @@ fun NoteForm(
 ) {
     var noteText by remember { mutableStateOf(initialNote?.content ?: "") }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
-
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .statusBarsPadding()
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -32,7 +34,6 @@ fun NoteForm(
                 style = MaterialTheme.typography.titleLarge
             )
 
-            // Prikaži Delete samo ako se uređuje postojeca bilješka
             if (initialNote != null) {
                 IconButton(
                     onClick = { onDelete?.invoke(initialNote) },
@@ -77,21 +78,27 @@ fun NoteForm(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Button(onClick = {
-                if (noteText.isNotBlank()) {
-                    val now = System.currentTimeMillis()
-                    val note = initialNote?.copy(
-                        content = noteText,
-                        updatedAt = now
-                    ) ?: Note(
-                        content = noteText,
-                        createdAt = now,
-                        updatedAt = now
-                    )
-                    onSave(note)
-                } }, enabled = noteText.isNotBlank())
-            {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.navigationBarsPadding()
+        ) {
+            Button(
+                onClick = {
+                    if (noteText.isNotBlank()) {
+                        val now = System.currentTimeMillis()
+                        val note = initialNote?.copy(
+                            content = noteText,
+                            updatedAt = now
+                        ) ?: Note(
+                            content = noteText,
+                            createdAt = now,
+                            updatedAt = now
+                        )
+                        onSave(note)
+                    }
+                },
+                enabled = noteText.isNotBlank()
+            ) {
                 Text("Spremi")
             }
             OutlinedButton(onClick = onCancel) {

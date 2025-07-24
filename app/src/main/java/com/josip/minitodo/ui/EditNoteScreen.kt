@@ -2,6 +2,7 @@ package com.josip.minitodo.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -22,37 +23,44 @@ fun EditNoteScreen(
     viewModel: NoteViewModel,
     onNavigateBack: () -> Unit
 ) {
-
     val noteFlow = viewModel.getNoteById(noteId)
     val note by noteFlow.collectAsState(initial = null)
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     if (note == null) {
-        // Show loading or fallback UI while note is loading
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),
+            contentAlignment = Alignment.Center
+        ) {
             CircularProgressIndicator()
         }
         return
     }
 
     note?.let {
-        NoteForm(
-            initialNote = it,
-            onSave = { updatedNote ->
-                viewModel.updateNote(updatedNote)
-                onNavigateBack()
-            },
-            onCancel = onNavigateBack,
-            onDelete = {
-                showDeleteDialog = true
-            }
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+        ) {
+            NoteForm(
+                initialNote = it,
+                onSave = { updatedNote ->
+                    viewModel.updateNote(updatedNote)
+                    onNavigateBack()
+                },
+                onCancel = onNavigateBack,
+                onDelete = {
+                    showDeleteDialog = true
+                }
+            )
+        }
 
         if (showDeleteDialog) {
             AlertDialog(
-                onDismissRequest = {
-                    showDeleteDialog = false
-                },
+                onDismissRequest = { showDeleteDialog = false },
                 title = { Text("Obrisati bilješku?") },
                 text = { Text("Jesi li siguran da želiš obrisati ovu bilješku?") },
                 confirmButton = {
@@ -65,9 +73,7 @@ fun EditNoteScreen(
                     }
                 },
                 dismissButton = {
-                    TextButton(onClick = {
-                        showDeleteDialog = false
-                    }) {
+                    TextButton(onClick = { showDeleteDialog = false }) {
                         Text("Odustani")
                     }
                 }

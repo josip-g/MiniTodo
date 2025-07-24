@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import com.josip.minitodo.viewmodel.NoteViewModel
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.graphics.Color
 
 @Composable
@@ -42,7 +44,8 @@ fun NotesScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp)
+                .statusBarsPadding(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(notes) { note ->
@@ -91,6 +94,7 @@ fun NotesScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 24.dp)
+                .navigationBarsPadding()
         ) {
             Icon(Icons.Default.Add, contentDescription = "Add note")
         }

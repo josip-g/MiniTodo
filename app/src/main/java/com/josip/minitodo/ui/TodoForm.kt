@@ -37,7 +37,13 @@ fun TodoForm(
     val createdAt by remember { mutableStateOf(initialTodo?.createdAt ?: System.currentTimeMillis()) }
     val updatedAt by remember { mutableStateOf(initialTodo?.updatedAt ?: System.currentTimeMillis()) }
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()        // prevents overlapping with the top status bar
+            .navigationBarsPadding()    // prevents overlapping with the bottom keys
+            .padding(16.dp)
+    ) {
         Text(
             text = if (initialTodo == null) "New todo" else "Edit todo",
             style = MaterialTheme.typography.titleLarge
@@ -79,27 +85,36 @@ fun TodoForm(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = {
-                if (text.isNotBlank()) {
-                    val now = System.currentTimeMillis()
-                    val todo = initialTodo?.copy(
-                        text = text,
-                        isImportant = important,
-                        updatedAt = now
-                    ) ?: Todo(
-                        text = text,
-                        isImportant = important,
-                        createdAt = now,
-                        updatedAt = now
-                    )
-                    onSubmit(todo)
-                }
-            }) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Button(
+                onClick = {
+                    if (text.isNotBlank()) {
+                        val now = System.currentTimeMillis()
+                        val todo = initialTodo?.copy(
+                            text = text,
+                            isImportant = important,
+                            updatedAt = now
+                        ) ?: Todo(
+                            text = text,
+                            isImportant = important,
+                            createdAt = now,
+                            updatedAt = now
+                        )
+                        onSubmit(todo)
+                    }
+                },
+                modifier = Modifier.weight(1f)
+            ) {
                 Text("Save")
             }
 
-            OutlinedButton(onClick = onCancel) {
+            OutlinedButton(
+                onClick = onCancel,
+                modifier = Modifier.weight(1f)
+            ) {
                 Text("Cancel")
             }
         }
