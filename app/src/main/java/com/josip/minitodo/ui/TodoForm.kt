@@ -45,7 +45,7 @@ fun TodoForm(
             .padding(16.dp)
     ) {
         Text(
-            text = if (initialTodo == null) "New todo" else "Edit todo",
+            text = if (initialTodo == null) "New task" else "Edit task",
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -54,7 +54,7 @@ fun TodoForm(
         TextField(
             value = text,
             onValueChange = { text = it },
-            label = { Text("Todo") },
+            label = { Text("Task") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )

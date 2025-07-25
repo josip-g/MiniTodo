@@ -30,7 +30,7 @@ fun NoteForm(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = if (initialNote == null) "Nova bilješka" else "Uredi bilješku",
+                text = if (initialNote == null) "New note" else "Edit note",
                 style = MaterialTheme.typography.titleLarge
             )
 
@@ -68,7 +68,7 @@ fun NoteForm(
         OutlinedTextField(
             value = noteText,
             onValueChange = { noteText = it },
-            label = { Text("Unesi bilješku") },
+            label = { Text("Enter note") },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
@@ -99,10 +99,10 @@ fun NoteForm(
                 },
                 enabled = noteText.isNotBlank()
             ) {
-                Text("Spremi")
+                Text("Save")
             }
             OutlinedButton(onClick = onCancel) {
-                Text("Odustani")
+                Text("Cancel")
             }
         }
     }

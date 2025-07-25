@@ -61,25 +61,25 @@ fun EditNoteScreen(
         if (showDeleteDialog) {
             AlertDialog(
                 onDismissRequest = { showDeleteDialog = false },
-                title = { Text("Obrisati bilješku?") },
-                text = { Text("Jesi li siguran da želiš obrisati ovu bilješku?") },
+                title = { Text("Delete note?") },
+                text = { Text("Are you sure you want to delete this note?") },
                 confirmButton = {
                     TextButton(onClick = {
                         viewModel.deleteNote(it)
                         showDeleteDialog = false
                         onNavigateBack()
                     }) {
-                        Text("Obriši")
+                        Text("Delete")
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { showDeleteDialog = false }) {
-                        Text("Odustani")
+                        Text("Cancel")
                     }
                 }
             )
         }
     } ?: run {
-        Text("Učitavanje...")
+        Text("Loading...")
     }
 }
