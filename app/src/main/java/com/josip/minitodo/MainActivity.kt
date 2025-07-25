@@ -22,6 +22,12 @@ import com.josip.minitodo.viewmodel.NoteViewModelFactory
 import com.josip.minitodo.viewmodel.TodoViewModel
 import com.josip.minitodo.viewmodel.TodoViewModelFactory
 
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
+
+@OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,63 +42,52 @@ class MainActivity : ComponentActivity() {
             val viewModelNote: NoteViewModel = viewModel(factory = factoryNote)
 
             MiniTodoTheme {
-                NavHost(navController, startDestination = "main") {
+                AnimatedNavHost(
+                    navController,
+                    startDestination = "main",
+                    enterTransition = { slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300)) + fadeIn() },
+                    exitTransition = { slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300)) + fadeOut() },
+                    popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300)) + fadeIn() },
+                    popExitTransition = { slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300)) + fadeOut() }
+                ) {
                     composable("main") {
                         MainScreen(
                             viewModel = viewModel,
-                            onEditTodo = { todoId ->
-                                navController.navigate("edit/$todoId")
-                            },
-                            onAddTodo = {
-                                navController.navigate("add")
-                            },
-                            onGetNotes = {
-                                navController.navigate("getnotes")
-                            },
+                            onEditTodo = { todoId -> navController.navigate("edit/$todoId") },
+                            onAddTodo = { navController.navigate("add") },
+                            onGetNotes = { navController.navigate("getnotes") },
                         )
                     }
 
                     composable(
-                        "edit/{todoId}", arguments = listOf(
-                        navArgument("todoId") { type = NavType.IntType }
-                    )) { backStackEntry ->
+                        "edit/{todoId}",
+                        arguments = listOf(navArgument("todoId") { type = NavType.IntType })
+                    ) { backStackEntry ->
                         val todoId = backStackEntry.arguments?.getInt("todoId") ?: return@composable
-                        EditTodoScreen(todoId, viewModel, onNavigateBack = {
-                            navController.popBackStack()
-                        })
+                        EditTodoScreen(todoId, viewModel) { navController.popBackStack() }
                     }
 
                     composable("add") {
-                        AddTodoScreen(viewModel, onNavigateBack = {
-                            navController.popBackStack()
-                        })
+                        AddTodoScreen(viewModel) { navController.popBackStack() }
                     }
 
                     composable("addnote") {
-                        AddNoteScreen(viewModelNote, onNavigateBack = {
-                            navController.popBackStack()
-                        })
+                        AddNoteScreen(viewModelNote) { navController.popBackStack() }
                     }
 
                     composable(
-                        "editnote/{noteId}", arguments = listOf(
-                        navArgument("noteId") { type = NavType.IntType }
-                    )) { backStackEntry ->
+                        "editnote/{noteId}",
+                        arguments = listOf(navArgument("noteId") { type = NavType.IntType })
+                    ) { backStackEntry ->
                         val noteId = backStackEntry.arguments?.getInt("noteId") ?: return@composable
-                        EditNoteScreen(noteId, viewModelNote, onNavigateBack = {
-                            navController.popBackStack()
-                        })
+                        EditNoteScreen(noteId, viewModelNote) { navController.popBackStack() }
                     }
 
                     composable("getnotes") {
                         NotesScreen(
                             viewModelNotes = viewModelNote,
-                            onAddNote = {
-                                navController.navigate("addnote")
-                            },
-                            onEditNote = { noteId ->
-                                navController.navigate("editnote/$noteId")
-                            },
+                            onAddNote = { navController.navigate("addnote") },
+                            onEditNote = { noteId -> navController.navigate("editnote/$noteId") },
                         )
                     }
                 }
