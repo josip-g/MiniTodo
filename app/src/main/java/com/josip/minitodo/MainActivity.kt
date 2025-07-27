@@ -62,11 +62,14 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = { slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300)) + fadeOut() }
                     ) {
                         composable("main") {
+
+                            val savedLang = com.josip.minitodo.utils.LocaleHelper.getSavedLanguage(context)
                             MainScreen(
                                 viewModel = viewModel,
                                 onEditTodo = { todoId -> navController.navigate("edit/$todoId") },
                                 onAddTodo = { navController.navigate("add") },
                                 onGetNotes = { navController.navigate("getnotes") },
+                                currentLang = savedLang,
                                 onLanguageChange = { newLang ->
                                     selectedLocale = Locale(newLang)
                                     com.josip.minitodo.utils.LocaleHelper.saveLanguage(context, newLang)

@@ -28,6 +28,7 @@ fun MainScreen(
     onEditTodo: (Int) -> Unit,
     onAddTodo: () -> Unit,
     onGetNotes: () -> Unit,
+    currentLang: String,
     onLanguageChange: (String) -> Unit
 ) {
     val todos by viewModel.todos.collectAsState()
@@ -118,23 +119,13 @@ fun MainScreen(
 
     // Language dialog
     if (showLanguageDialog) {
-        AlertDialog(
-            onDismissRequest = { showLanguageDialog = false },
-            title = { Text("Choose language") },
-            text = {
-                Column {
-                    TextButton(onClick = {
-                        onLanguageChange("en"); showLanguageDialog = false
-                    }) { Text("English") }
-                    TextButton(onClick = {
-                        onLanguageChange("hr"); showLanguageDialog = false
-                    }) { Text("Hrvatski") }
-                    TextButton(onClick = {
-                        onLanguageChange("de"); showLanguageDialog = false
-                    }) { Text("Deutsch") }
-                }
+        LanguageDialog(
+            currentLang = currentLang,
+            onLanguageChange = {
+                onLanguageChange(it)
+                showLanguageDialog = false
             },
-            confirmButton = {}
+            onDismiss = { showLanguageDialog = false }
         )
     }
 
