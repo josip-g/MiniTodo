@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mini Todo</string>
+    <string name="button_save">Speichern</string>
+    <string name="button_cancel">Abbrechen</string>
+    <string name="new_note">Neue Notiz</string>
+    <string name="edit_note">Notiz bearbeiten</string>
+    <string name="delete_note">Notiz löschen</string>
+    <string name="created">Erstellt</string>
+    <string name="updated">Aktualisiert</string>
+    <string name="enter_note">Notiz eingeben</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mini Todo</string>
+    <string name="button_save">Spremi</string>
+    <string name="button_cancel">Odustani</string>
+    <string name="new_note">Nova bilješka</string>
+    <string name="edit_note">Uredi bilješku</string>
+    <string name="delete_note">Obriši bilješku</string>
+    <string name="created">Stvoreno</string>
+    <string name="updated">Ažurirano</string>
+    <string name="enter_note">Unesi bilješku</string>
+</resources>

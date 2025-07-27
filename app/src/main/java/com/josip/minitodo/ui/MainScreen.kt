@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.josip.minitodo.data.Todo
 import com.josip.minitodo.viewmodel.TodoViewModel
 import androidx.compose.foundation.Image
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import com.josip.minitodo.R
 
@@ -26,13 +28,14 @@ fun MainScreen(
     onEditTodo: (Int) -> Unit,
     onAddTodo: () -> Unit,
     onGetNotes: () -> Unit,
+    onLanguageChange: (String) -> Unit
 ) {
     val todos by viewModel.todos.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
     var taskToDelete by remember { mutableStateOf<Todo?>(null) }
+    var showLanguageDialog by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize()) {
-
         BoxWithConstraints(
             modifier = Modifier
                 .fillMaxWidth()
@@ -40,14 +43,26 @@ fun MainScreen(
                 .statusBarsPadding()
                 .padding(0.dp)
         ) {
-            val logoSize = maxWidth * 0.15f // 15% of screen width
+            val logoSize = maxWidth * 0.15f
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Mini Todo Logo",
                 modifier = Modifier
                     .width(logoSize)
-                    .aspectRatio(1f) // to remain square
+                    .aspectRatio(1f)
+                    .align(Alignment.CenterStart)
             )
+
+            IconButton(
+                onClick = { showLanguageDialog = true },
+                modifier = Modifier.align(Alignment.CenterEnd)
+            ) {
+                Icon(
+                    Icons.Default.Language,
+                    contentDescription = "Change Language",
+                    tint = Color.White
+                )
+            }
         }
 
         // Todos List
@@ -62,9 +77,7 @@ fun MainScreen(
                     modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
                 ) {
                     Row(
                         modifier = Modifier
@@ -84,11 +97,7 @@ fun MainScreen(
                                 onClick = { onEditTodo(todo.id) },
                                 modifier = Modifier.size(36.dp)
                             ) {
-                                Icon(
-                                    Icons.Default.Edit,
-                                    contentDescription = "Edit",
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
+                                Icon(Icons.Default.Edit, contentDescription = "Edit", tint = MaterialTheme.colorScheme.primary)
                             }
 
                             IconButton(
@@ -98,17 +107,35 @@ fun MainScreen(
                                 },
                                 modifier = Modifier.size(36.dp)
                             ) {
-                                Icon(
-                                    Icons.Default.Delete,
-                                    contentDescription = "Delete",
-                                    tint = MaterialTheme.colorScheme.error
-                                )
+                                Icon(Icons.Default.Delete, contentDescription = "Delete", tint = MaterialTheme.colorScheme.error)
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    // Language dialog
+    if (showLanguageDialog) {
+        AlertDialog(
+            onDismissRequest = { showLanguageDialog = false },
+            title = { Text("Choose language") },
+            text = {
+                Column {
+                    TextButton(onClick = {
+                        onLanguageChange("en"); showLanguageDialog = false
+                    }) { Text("English") }
+                    TextButton(onClick = {
+                        onLanguageChange("hr"); showLanguageDialog = false
+                    }) { Text("Hrvatski") }
+                    TextButton(onClick = {
+                        onLanguageChange("de"); showLanguageDialog = false
+                    }) { Text("Deutsch") }
+                }
+            },
+            confirmButton = {}
+        )
     }
 
     // Floating buttons
