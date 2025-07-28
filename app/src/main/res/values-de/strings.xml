@@ -9,4 +9,11 @@
     <string name="created">Erstellt</string>
     <string name="updated">Aktualisiert</string>
     <string name="enter_note">Notiz eingeben</string>
+
+    <!-- Language selection -->
+    <string name="language">Language</string>
+    <string name="choose_language">Sprache wählen</string>
+    <string name="language_english">English</string>
+    <string name="language_croatian">Hrvatski</string>
+    <string name="language_german">Deutsch</string>
 </resources>

@@ -37,13 +37,10 @@ class MainActivity : ComponentActivity() {
         val factoryNote = NoteViewModelFactory(daoNote)
 
         setContent {
-
             val context = LocalContext.current
-
             val prefsLang = com.josip.minitodo.utils.LocaleHelper.getSavedLanguage(this)
             var selectedLocale by remember { mutableStateOf(Locale(prefsLang)) }
             val localizedContext = com.josip.minitodo.utils.LocaleHelper.wrapWithLocale(this, selectedLocale)
-
 
             val navController = rememberNavController()
             val viewModel: TodoViewModel = viewModel(factory = factory)
@@ -62,14 +59,12 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = { slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300)) + fadeOut() }
                     ) {
                         composable("main") {
-
-                            val savedLang = com.josip.minitodo.utils.LocaleHelper.getSavedLanguage(context)
                             MainScreen(
                                 viewModel = viewModel,
                                 onEditTodo = { todoId -> navController.navigate("edit/$todoId") },
                                 onAddTodo = { navController.navigate("add") },
                                 onGetNotes = { navController.navigate("getnotes") },
-                                currentLang = savedLang,
+                                currentLang = selectedLocale.language,
                                 onLanguageChange = { newLang ->
                                     selectedLocale = Locale(newLang)
                                     com.josip.minitodo.utils.LocaleHelper.saveLanguage(context, newLang)

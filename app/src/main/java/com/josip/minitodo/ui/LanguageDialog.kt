@@ -1,14 +1,13 @@
 package com.josip.minitodo.ui
 
-import androidx.compose.material3.AlertDialog
-import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.clickable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun LanguageDialog(
@@ -24,7 +23,7 @@ fun LanguageDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Choose language") },
+        title = { Text(getDialogTitleForLang(currentLang)) },
         text = {
             Column {
                 languages.forEach { (code, name) ->
@@ -53,4 +52,12 @@ fun LanguageDialog(
         },
         confirmButton = {}
     )
+}
+
+fun getDialogTitleForLang(lang: String): String {
+    return when (lang) {
+        "de" -> "Sprache wählen"
+        "hr" -> "Odaberi jezik"
+        else -> "Choose language"
+    }
 }

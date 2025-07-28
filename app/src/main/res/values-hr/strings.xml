@@ -9,4 +9,11 @@
     <string name="created">Stvoreno</string>
     <string name="updated">Ažurirano</string>
     <string name="enter_note">Unesi bilješku</string>
+
+    <!-- Language selection -->
+    <string name="language">Language</string>
+    <string name="choose_language">Odaberite jezik</string>
+    <string name="language_english">English</string>
+    <string name="language_croatian">Hrvatski</string>
+    <string name="language_german">Deutsch</string>
 </resources>
