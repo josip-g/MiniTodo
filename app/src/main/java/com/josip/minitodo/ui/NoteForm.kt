@@ -8,7 +8,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.josip.minitodo.R
 import com.josip.minitodo.data.Note
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun NoteForm(
@@ -30,7 +32,10 @@ fun NoteForm(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = if (initialNote == null) "New note" else "Edit note",
+                text = if (initialNote == null)
+                    stringResource(id = R.string.new_note)
+                else
+                    stringResource(id = R.string.edit_note),
                 style = MaterialTheme.typography.titleLarge
             )
 
@@ -41,7 +46,7 @@ fun NoteForm(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete note",
+                        contentDescription = stringResource(id = R.string.delete_note),
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
@@ -52,12 +57,18 @@ fun NoteForm(
 
         if (initialNote != null) {
             Text(
-                text = "Created: ${formatTimestamp(initialNote.createdAt)}",
+                text = stringResource(
+                    id = R.string.created_with_date,
+                    formatTimestamp(initialNote.createdAt)
+                ),
                 style = MaterialTheme.typography.labelSmall,
                 color = Color.Gray
             )
             Text(
-                text = "Updated: ${formatTimestamp(initialNote.updatedAt)}",
+                text = stringResource(
+                    id = R.string.updated_with_date,
+                    formatTimestamp(initialNote.updatedAt)
+                ),
                 style = MaterialTheme.typography.labelSmall,
                 color = Color.Gray
             )
@@ -68,7 +79,7 @@ fun NoteForm(
         OutlinedTextField(
             value = noteText,
             onValueChange = { noteText = it },
-            label = { Text("Enter note") },
+            label = { Text(text = stringResource(id = R.string.enter_note)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
@@ -99,10 +110,10 @@ fun NoteForm(
                 },
                 enabled = noteText.isNotBlank()
             ) {
-                Text("Save")
+                Text(text = stringResource(id = R.string.button_save))
             }
             OutlinedButton(onClick = onCancel) {
-                Text("Cancel")
+                Text(text = stringResource(id = R.string.button_cancel))
             }
         }
     }

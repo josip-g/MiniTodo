@@ -30,6 +30,8 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.josip.minitodo.R
 
 @Composable
 fun NotesScreen(
@@ -68,21 +70,6 @@ fun NotesScreen(
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(text = note.content)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = "Created: ${formatTimestamp(note.createdAt)}",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = Color.Gray
-                        )
-                        Text(
-                            text = "Updated: ${formatTimestamp(note.updatedAt)}",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = Color.Gray
-                        )
-                        Text(
-                            text = "Id: ${note.id.toLong()}",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = Color.Gray
-                        )
                     }
                 }
             }
@@ -96,7 +83,7 @@ fun NotesScreen(
                 .padding(bottom = 24.dp)
                 .navigationBarsPadding()
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add note")
+            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_note))
         }
     }
 }

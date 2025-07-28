@@ -16,6 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.josip.minitodo.viewmodel.NoteViewModel
+import androidx.compose.ui.res.stringResource
+import com.josip.minitodo.R
 
 @Composable
 fun EditNoteScreen(
@@ -61,25 +63,25 @@ fun EditNoteScreen(
         if (showDeleteDialog) {
             AlertDialog(
                 onDismissRequest = { showDeleteDialog = false },
-                title = { Text("Delete note?") },
-                text = { Text("Are you sure you want to delete this note?") },
+                title = { Text(stringResource(R.string.delete_note_title)) },
+                text = { Text(stringResource(R.string.delete_note_message)) },
                 confirmButton = {
                     TextButton(onClick = {
                         viewModel.deleteNote(it)
                         showDeleteDialog = false
                         onNavigateBack()
                     }) {
-                        Text("Delete")
+                        Text(stringResource(R.string.delete))
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { showDeleteDialog = false }) {
-                        Text("Cancel")
+                        Text(stringResource(R.string.button_cancel))
                     }
                 }
             )
         }
     } ?: run {
-        Text("Loading...")
+        Text(stringResource(R.string.loading))
     }
 }

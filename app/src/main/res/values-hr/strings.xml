@@ -9,6 +9,15 @@
     <string name="created">Stvoreno</string>
     <string name="updated">Ažurirano</string>
     <string name="enter_note">Unesi bilješku</string>
+    <string name="add_note">Dodaj bilješku</string>
+
+    <string name="created_with_date">Stvoreno: %1$s</string>
+    <string name="updated_with_date">Ažurirano: %1$s</string>
+
+    <string name="delete_note_title">Obrisati bilješku?</string>
+    <string name="delete_note_message">Jesi li siguran da želiš obrisati ovu bilješku?</string>
+    <string name="delete">Obriši</string>
+    <string name="loading">Učitavanje...</string>
 
     <!-- Language selection -->
     <string name="language">Language</string>
