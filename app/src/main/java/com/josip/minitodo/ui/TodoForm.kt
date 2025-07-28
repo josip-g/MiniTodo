@@ -1,28 +1,15 @@
 package com.josip.minitodo.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.josip.minitodo.data.Todo
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.josip.minitodo.R
+import com.josip.minitodo.data.Todo
 import com.josip.minitodo.utils.LocaleHelper.formatTimestamp
 
 @Composable
@@ -39,12 +26,12 @@ fun TodoForm(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()        // prevents overlapping with the top status bar
-            .navigationBarsPadding()    // prevents overlapping with the bottom keys
+            .statusBarsPadding()
+            .navigationBarsPadding()
             .padding(16.dp)
     ) {
         Text(
-            text = if (initialTodo == null) "New task" else "Edit task",
+            text = if (initialTodo == null) stringResource(R.string.new_task) else stringResource(R.string.edit_task),
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -53,7 +40,7 @@ fun TodoForm(
         TextField(
             value = text,
             onValueChange = { text = it },
-            label = { Text("Task") },
+            label = { Text(stringResource(R.string.task_label)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -65,19 +52,19 @@ fun TodoForm(
                 checked = important,
                 onCheckedChange = { important = it }
             )
-            Text("Important")
+            Text(stringResource(R.string.important_label))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Created At: ${formatTimestamp(createdAt)}",
+            text = stringResource(R.string.created_with_date, formatTimestamp(createdAt)),
             style = MaterialTheme.typography.bodySmall,
             color = Color.Gray
         )
 
         Text(
-            text = "Last update: ${formatTimestamp(updatedAt)}",
+            text = stringResource(R.string.updated_with_date, formatTimestamp(updatedAt)),
             style = MaterialTheme.typography.bodySmall,
             color = Color.Gray
         )
@@ -108,14 +95,14 @@ fun TodoForm(
                 modifier = Modifier.weight(1f),
                 enabled = text.isNotBlank()
             ) {
-                Text("Save")
+                Text(stringResource(R.string.button_save))
             }
 
             OutlinedButton(
                 onClick = onCancel,
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Cancel")
+                Text(stringResource(R.string.button_cancel))
             }
         }
     }
