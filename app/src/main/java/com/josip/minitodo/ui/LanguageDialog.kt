@@ -7,7 +7,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.josip.minitodo.utils.LocaleHelper
+import com.josip.minitodo.utils.LocaleHelper.getLanguages
 
 @Composable
 fun LanguageDialog(
@@ -15,17 +18,14 @@ fun LanguageDialog(
     onLanguageChange: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val languages = listOf(
-        "en" to "English",
-        "hr" to "Hrvatski",
-        "de" to "Deutsch"
-    )
-
+    val context = LocalContext.current
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(getDialogTitleForLang(currentLang)) },
+        title = { Text(LocaleHelper.getDialogTitleForLang(context)) },
         text = {
             Column {
+
+                val languages = getLanguages(context)
                 languages.forEach { (code, name) ->
                     val isSelected = currentLang == code
                     Row(
@@ -52,12 +52,4 @@ fun LanguageDialog(
         },
         confirmButton = {}
     )
-}
-
-fun getDialogTitleForLang(lang: String): String {
-    return when (lang) {
-        "de" -> "Sprache wählen"
-        "hr" -> "Odaberi jezik"
-        else -> "Choose language"
-    }
 }
