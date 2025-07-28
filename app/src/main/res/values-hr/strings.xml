@@ -1,31 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mini Todo</string>
+
     <string name="button_save">Spremi</string>
     <string name="button_cancel">Odustani</string>
-    <string name="new_note">Nova bilješka</string>
-    <string name="edit_note">Uredi bilješku</string>
-    <string name="delete_note">Obriši bilješku</string>
-    <string name="created">Stvoreno</string>
-    <string name="updated">Ažurirano</string>
-    <string name="enter_note">Unesi bilješku</string>
-    <string name="add_note">Dodaj bilješku</string>
-
+    <string name="button_delete">Obriši</string>
+    <string name="loading">Učitavanje...</string>
     <string name="created_with_date">Stvoreno: %1$s</string>
     <string name="updated_with_date">Ažurirano: %1$s</string>
 
+    <!-- Task form -->
+    <string name="new_task">Novi zadatak</string>
+    <string name="edit_task">Uredi zadatak</string>
+    <string name="task_label">Zadatak</string>
+    <string name="important_label">Važno</string>
     <string name="delete_task_title">Obrisati zadatak?</string>
     <string name="delete_task_message">Jeste li sigurni da želite obrisati zadatak „%1$s“?</string>
     <string name="add_task">Dodaj zadatak</string>
 
+    <!-- Note form -->
+    <string name="new_note">Nova bilješka</string>
+    <string name="edit_note">Uredi bilješku</string>
+    <string name="delete_note">Obriši bilješku</string>
+    <string name="enter_note">Unesi bilješku</string>
+    <string name="add_note">Dodaj bilješku</string>
     <string name="delete_note_title">Obrisati bilješku?</string>
-    <string name="delete_note_message">Jesi li siguran da želiš obrisati ovu bilješku?</string>
-    <string name="delete">Obriši</string>
-    <string name="loading">Učitavanje...</string>
+    <string name="delete_note_message">Jeste li sigurni da želite obrisati ovu bilješku?</string>
 
     <!-- Language selection -->
-    <string name="language">Language</string>
-    <string name="choose_language">Odaberite jezik</string>
+    <string name="language">Jezik</string>
+    <string name="choose_language">Odaberi jezik</string>
     <string name="language_english">English</string>
     <string name="language_croatian">Hrvatski</string>
     <string name="language_german">Deutsch</string>

@@ -170,7 +170,7 @@ fun MainScreen(
             DeleteDialog(
                 title = stringResource(R.string.delete_task_title),
                 message = stringResource(R.string.delete_task_message, taskToDelete!!.text),
-                confirmButtonText = stringResource(R.string.delete),
+                confirmButtonText = stringResource(R.string.button_delete),
                 dismissButtonText = stringResource(R.string.button_cancel),
                 onConfirm = {
                     viewModel.deleteTodo(taskToDelete!!)

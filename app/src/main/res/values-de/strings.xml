@@ -1,30 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mini Todo</string>
+
     <string name="button_save">Speichern</string>
     <string name="button_cancel">Abbrechen</string>
-    <string name="new_note">Neue Notiz</string>
-    <string name="edit_note">Notiz bearbeiten</string>
-    <string name="delete_note">Notiz löschen</string>
-    <string name="created">Erstellt</string>
-    <string name="updated">Aktualisiert</string>
-    <string name="enter_note">Notiz eingeben</string>
-    <string name="add_note">Notiz hinzufügen</string>
-
+    <string name="button_delete">Löschen</string>
+    <string name="loading">Laden...</string>
     <string name="created_with_date">Erstellt: %1$s</string>
     <string name="updated_with_date">Aktualisiert: %1$s</string>
 
+    <!-- Task form -->
+    <string name="new_task">Neue Aufgabe</string>
+    <string name="edit_task">Aufgabe bearbeiten</string>
+    <string name="task_label">Aufgabe</string>
+    <string name="important_label">Wichtig</string>
     <string name="delete_task_title">Aufgabe löschen?</string>
-    <string name="delete_task_message">Sind Sie sicher, dass Sie die Aufgabe „%1$s“ löschen möchten?</string>
+    <string name="delete_task_message">Möchten Sie die Aufgabe „%1$s“ wirklich löschen?</string>
     <string name="add_task">Aufgabe hinzufügen</string>
 
+    <!-- Note form -->
+    <string name="new_note">Neue Notiz</string>
+    <string name="edit_note">Notiz bearbeiten</string>
+    <string name="delete_note">Notiz löschen</string>
+    <string name="enter_note">Notiz eingeben</string>
+    <string name="add_note">Notiz hinzufügen</string>
     <string name="delete_note_title">Notiz löschen?</string>
-    <string name="delete_note_message">Sind Sie sicher, dass Sie diese Notiz löschen möchten?</string>
-    <string name="delete">Löschen</string>
-    <string name="loading">Wird geladen...</string>
+    <string name="delete_note_message">Möchten Sie diese Notiz wirklich löschen?</string>
 
     <!-- Language selection -->
-    <string name="language">Language</string>
+    <string name="language">Sprache</string>
     <string name="choose_language">Sprache wählen</string>
     <string name="language_english">English</string>
     <string name="language_croatian">Hrvatski</string>

@@ -8,4 +8,6 @@ object Constants {
     const val LANG_EN = "en"
     const val LANG_HR = "hr"
     const val LANG_DE = "de"
+
+    const val EMPTY_STRING = ""
 }

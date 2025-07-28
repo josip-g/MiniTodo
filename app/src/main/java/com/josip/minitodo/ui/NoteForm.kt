@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
 import com.josip.minitodo.data.Note
 import androidx.compose.ui.res.stringResource
+import com.josip.minitodo.utils.Constants
+import com.josip.minitodo.utils.LocaleHelper.formatTimestamp
 
 @Composable
 fun NoteForm(
@@ -19,7 +21,7 @@ fun NoteForm(
     onCancel: () -> Unit,
     onDelete: ((Note) -> Unit)? = null
 ) {
-    var noteText by remember { mutableStateOf(initialNote?.content ?: "") }
+    var noteText by remember { mutableStateOf(initialNote?.content ?: Constants.EMPTY_STRING) }
 
     Column(
         modifier = Modifier
