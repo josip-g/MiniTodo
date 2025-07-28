@@ -167,29 +167,17 @@ fun MainScreen(
         }
 
         if (showDeleteDialog && taskToDelete != null) {
-            AlertDialog(
-                onDismissRequest = {
+            DeleteDialog(
+                title = stringResource(R.string.delete_task_title),
+                message = stringResource(R.string.delete_task_message, taskToDelete!!.text),
+                onConfirm = {
+                    viewModel.deleteTodo(taskToDelete!!)
                     showDeleteDialog = false
                     taskToDelete = null
                 },
-                title = { Text(stringResource(R.string.delete_task_title)) },
-                text = { Text(stringResource(R.string.delete_task_message, taskToDelete!!.text)) },
-                confirmButton = {
-                    TextButton(onClick = {
-                        viewModel.deleteTodo(taskToDelete!!)
-                        showDeleteDialog = false
-                        taskToDelete = null
-                    }) {
-                        Text(stringResource(R.string.delete))
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = {
-                        showDeleteDialog = false
-                        taskToDelete = null
-                    }) {
-                        Text(stringResource(R.string.button_cancel))
-                    }
+                onDismiss = {
+                    showDeleteDialog = false
+                    taskToDelete = null
                 }
             )
         }

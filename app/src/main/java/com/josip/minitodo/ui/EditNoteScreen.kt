@@ -61,24 +61,15 @@ fun EditNoteScreen(
         }
 
         if (showDeleteDialog) {
-            AlertDialog(
-                onDismissRequest = { showDeleteDialog = false },
-                title = { Text(stringResource(R.string.delete_note_title)) },
-                text = { Text(stringResource(R.string.delete_note_message)) },
-                confirmButton = {
-                    TextButton(onClick = {
-                        viewModel.deleteNote(it)
-                        showDeleteDialog = false
-                        onNavigateBack()
-                    }) {
-                        Text(stringResource(R.string.delete))
-                    }
+            DeleteDialog(
+                title = stringResource(R.string.delete_note_title),
+                message = stringResource(R.string.delete_note_message),
+                onConfirm = {
+                    viewModel.deleteNote(it)
+                    showDeleteDialog = false
+                    onNavigateBack()
                 },
-                dismissButton = {
-                    TextButton(onClick = { showDeleteDialog = false }) {
-                        Text(stringResource(R.string.button_cancel))
-                    }
-                }
+                onDismiss = { showDeleteDialog = false }
             )
         }
     } ?: run {
