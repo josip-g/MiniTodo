@@ -1,5 +1,6 @@
 package com.josip.minitodo.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,17 +11,17 @@ import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.NoteAlt
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.josip.minitodo.data.Todo
-import com.josip.minitodo.viewmodel.TodoViewModel
-import androidx.compose.foundation.Image
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
+import com.josip.minitodo.data.Todo
+import com.josip.minitodo.viewmodel.TodoViewModel
 
 @Composable
 fun MainScreen(
@@ -47,7 +48,7 @@ fun MainScreen(
             val logoSize = maxWidth * 0.15f
             Image(
                 painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Mini Todo Logo",
+                contentDescription = stringResource(R.string.app_name),
                 modifier = Modifier
                     .width(logoSize)
                     .aspectRatio(1f)
@@ -60,7 +61,7 @@ fun MainScreen(
             ) {
                 Icon(
                     Icons.Default.Language,
-                    contentDescription = "Change Language",
+                    contentDescription = stringResource(R.string.choose_language),
                     tint = Color.White
                 )
             }
@@ -98,7 +99,11 @@ fun MainScreen(
                                 onClick = { onEditTodo(todo.id) },
                                 modifier = Modifier.size(36.dp)
                             ) {
-                                Icon(Icons.Default.Edit, contentDescription = "Edit", tint = MaterialTheme.colorScheme.primary)
+                                Icon(
+                                    Icons.Default.Edit,
+                                    contentDescription = stringResource(R.string.edit_note),
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
                             }
 
                             IconButton(
@@ -108,7 +113,11 @@ fun MainScreen(
                                 },
                                 modifier = Modifier.size(36.dp)
                             ) {
-                                Icon(Icons.Default.Delete, contentDescription = "Delete", tint = MaterialTheme.colorScheme.error)
+                                Icon(
+                                    Icons.Default.Delete,
+                                    contentDescription = stringResource(R.string.delete_note),
+                                    tint = MaterialTheme.colorScheme.error
+                                )
                             }
                         }
                     }
@@ -136,9 +145,12 @@ fun MainScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 24.dp, end = 24.dp)
-                .navigationBarsPadding() // prevents key overlap
+                .navigationBarsPadding()
         ) {
-            Icon(Icons.Default.AddTask, contentDescription = "Add task")
+            Icon(
+                Icons.Default.AddTask,
+                contentDescription = stringResource(R.string.add_task)
+            )
         }
 
         FloatingActionButton(
@@ -148,7 +160,10 @@ fun MainScreen(
                 .padding(bottom = 24.dp, start = 24.dp)
                 .navigationBarsPadding()
         ) {
-            Icon(Icons.Default.NoteAlt, contentDescription = "Add note")
+            Icon(
+                Icons.Default.NoteAlt,
+                contentDescription = stringResource(R.string.add_note)
+            )
         }
 
         if (showDeleteDialog && taskToDelete != null) {
@@ -157,15 +172,15 @@ fun MainScreen(
                     showDeleteDialog = false
                     taskToDelete = null
                 },
-                title = { Text("Delete task?") },
-                text = { Text("Are you sure you want to delete the task \"${taskToDelete!!.text}\"?") },
+                title = { Text(stringResource(R.string.delete_task_title)) },
+                text = { Text(stringResource(R.string.delete_task_message, taskToDelete!!.text)) },
                 confirmButton = {
                     TextButton(onClick = {
                         viewModel.deleteTodo(taskToDelete!!)
                         showDeleteDialog = false
                         taskToDelete = null
                     }) {
-                        Text("Delete")
+                        Text(stringResource(R.string.delete))
                     }
                 },
                 dismissButton = {
@@ -173,7 +188,7 @@ fun MainScreen(
                         showDeleteDialog = false
                         taskToDelete = null
                     }) {
-                        Text("Cancel")
+                        Text(stringResource(R.string.button_cancel))
                     }
                 }
             )

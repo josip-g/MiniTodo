@@ -14,6 +14,10 @@
     <string name="created_with_date">Stvoreno: %1$s</string>
     <string name="updated_with_date">Ažurirano: %1$s</string>
 
+    <string name="delete_task_title">Obrisati zadatak?</string>
+    <string name="delete_task_message">Jeste li sigurni da želite obrisati zadatak „%1$s“?</string>
+    <string name="add_task">Dodaj zadatak</string>
+
     <string name="delete_note_title">Obrisati bilješku?</string>
     <string name="delete_note_message">Jesi li siguran da želiš obrisati ovu bilješku?</string>
     <string name="delete">Obriši</string>

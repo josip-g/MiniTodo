@@ -14,6 +14,10 @@
     <string name="created_with_date">Erstellt: %1$s</string>
     <string name="updated_with_date">Aktualisiert: %1$s</string>
 
+    <string name="delete_task_title">Aufgabe löschen?</string>
+    <string name="delete_task_message">Sind Sie sicher, dass Sie die Aufgabe „%1$s“ löschen möchten?</string>
+    <string name="add_task">Aufgabe hinzufügen</string>
+
     <string name="delete_note_title">Notiz löschen?</string>
     <string name="delete_note_message">Sind Sie sicher, dass Sie diese Notiz löschen möchten?</string>
     <string name="delete">Löschen</string>
