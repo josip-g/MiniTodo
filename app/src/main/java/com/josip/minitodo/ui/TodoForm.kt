@@ -23,8 +23,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
-import java.text.SimpleDateFormat
-import java.util.*
+import com.josip.minitodo.utils.LocaleHelper.formatTimestamp
 
 @Composable
 fun TodoForm(
@@ -120,9 +119,4 @@ fun TodoForm(
             }
         }
     }
-}
-
-fun formatTimestamp(timestamp: Long): String {
-    val sdf = SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault())
-    return sdf.format(Date(timestamp))
 }

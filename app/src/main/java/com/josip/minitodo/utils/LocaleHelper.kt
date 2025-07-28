@@ -6,6 +6,8 @@ import java.util.*
 import androidx.core.content.edit
 import com.josip.minitodo.utils.Constants.PREFS_NAME
 import com.josip.minitodo.utils.Constants.KEY_LANGUAGE
+import java.text.SimpleDateFormat
+
 object LocaleHelper {
 
     fun saveLanguage(context: Context, language: String) {
@@ -40,5 +42,10 @@ object LocaleHelper {
             Constants.LANG_HR to context.getString(R.string.language_croatian),
             Constants.LANG_DE to context.getString(R.string.language_german)
         )
+    }
+
+    fun formatTimestamp(timestamp: Long): String {
+        val sdf = SimpleDateFormat("dd.MM.yyyy. HH:mm", Locale.getDefault())
+        return sdf.format(Date(timestamp))
     }
 }

@@ -29,7 +29,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
 
