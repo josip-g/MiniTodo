@@ -64,6 +64,8 @@ fun EditNoteScreen(
             DeleteDialog(
                 title = stringResource(R.string.delete_note_title),
                 message = stringResource(R.string.delete_note_message),
+                confirmButtonText = stringResource(R.string.delete),
+                dismissButtonText = stringResource(R.string.button_cancel),
                 onConfirm = {
                     viewModel.deleteNote(it)
                     showDeleteDialog = false
