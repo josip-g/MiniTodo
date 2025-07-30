@@ -4,6 +4,7 @@
     <string name="button_save">Spremi</string>
     <string name="button_cancel">Odustani</string>
     <string name="button_delete">Obriši</string>
+    <string name="button_apply">Primijeni</string>
     <string name="loading">Učitavanje...</string>
     <string name="created_with_date">Stvoreno: %1$s</string>
     <string name="updated_with_date">Ažurirano: %1$s</string>

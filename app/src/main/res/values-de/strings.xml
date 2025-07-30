@@ -4,6 +4,7 @@
     <string name="button_save">Speichern</string>
     <string name="button_cancel">Abbrechen</string>
     <string name="button_delete">Löschen</string>
+    <string name="button_apply">Übernehmen</string>
     <string name="loading">Laden...</string>
     <string name="created_with_date">Erstellt: %1$s</string>
     <string name="updated_with_date">Aktualisiert: %1$s</string>

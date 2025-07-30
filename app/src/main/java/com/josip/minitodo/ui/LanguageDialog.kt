@@ -16,19 +16,22 @@ import com.josip.minitodo.utils.LocaleHelper.getLanguages
 @Composable
 fun LanguageDialog(
     currentLang: String,
+    applyButtonText: String,
+    cancelButtonText: String,
     onLanguageChange: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
+    var selectedLang by remember { mutableStateOf(currentLang) }
+
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(LocaleHelper.getDialogTitleForLang(context)) },
         text = {
             Column {
-
                 val languages = getLanguages(context)
                 languages.forEach { (code, name) ->
-                    val isSelected = currentLang == code
+                    val isSelected = selectedLang == code
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -41,8 +44,7 @@ fun LanguageDialog(
                                 indication = null,
                                 interactionSource = remember { MutableInteractionSource() }
                             ) {
-                                onLanguageChange(code)
-                                onDismiss()
+                                selectedLang = code
                             }
                     ) {
                         Text(
@@ -54,6 +56,18 @@ fun LanguageDialog(
                 }
             }
         },
-        confirmButton = {}
+        confirmButton = {
+            Button(onClick = {
+                onLanguageChange(selectedLang)
+                onDismiss()
+            }) {
+                Text(applyButtonText)
+            }
+        },
+        dismissButton = {
+            OutlinedButton(onClick = { onDismiss() }) {
+                Text(cancelButtonText)
+            }
+        }
     )
 }

@@ -130,6 +130,8 @@ fun MainScreen(
     if (showLanguageDialog) {
         LanguageDialog(
             currentLang = currentLang,
+            applyButtonText = stringResource(R.string.button_apply),
+            cancelButtonText = stringResource(R.string.button_cancel),
             onLanguageChange = {
                 onLanguageChange(it)
                 showLanguageDialog = false

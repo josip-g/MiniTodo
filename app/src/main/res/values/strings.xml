@@ -4,6 +4,7 @@
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_delete">Delete</string>
+    <string name="button_apply">Apply</string>
     <string name="loading">Loading...</string>
     <string name="created_with_date">Created: %1$s</string>
     <string name="updated_with_date">Updated: %1$s</string>
