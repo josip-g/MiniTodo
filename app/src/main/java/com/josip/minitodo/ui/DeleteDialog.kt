@@ -2,9 +2,12 @@ package com.josip.minitodo.ui
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun DeleteDialog(
@@ -20,12 +23,17 @@ fun DeleteDialog(
         title = { Text(title) },
         text = { Text(message) },
         confirmButton = {
-            OutlinedButton(onClick = onConfirm) {
+            Button(
+                onClick = onConfirm,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = Color.White
+                )) {
                 Text(confirmButtonText)
             }
         },
         dismissButton = {
-            Button(onClick = onDismiss) {
+            OutlinedButton (onClick = onDismiss) {
                 Text(dismissButtonText)
             }
         }
