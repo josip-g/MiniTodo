@@ -10,4 +10,7 @@ object Constants {
     const val LANG_DE = "de"
 
     const val EMPTY_STRING = ""
+    const val TEXT_FIELD_MIN_LINES = 1
+    const val TEXT_FIELD_MAX_LINES = 3
+    const val TEXT_FIELD_MAX_CHARS = 80
 }

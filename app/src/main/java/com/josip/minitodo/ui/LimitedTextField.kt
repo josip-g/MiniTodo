@@ -1,5 +1,8 @@
 package com.josip.minitodo.ui
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -7,7 +10,11 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.josip.minitodo.utils.Constants.TEXT_FIELD_MIN_LINES
+import com.josip.minitodo.utils.Constants.TEXT_FIELD_MAX_LINES
+import com.josip.minitodo.utils.Constants.TEXT_FIELD_MAX_CHARS
 
 @Composable
 fun LimitedTextField(
@@ -15,28 +22,39 @@ fun LimitedTextField(
     onValueChange: (String) -> Unit,
     label: String,
     modifier: Modifier = Modifier,
-    minLines: Int = 1,
-    maxLines: Int = 3,
-    maxChars: Int = 80
+    minLines: Int = TEXT_FIELD_MIN_LINES,
+    maxLines: Int = TEXT_FIELD_MAX_LINES,
+    maxChars: Int = TEXT_FIELD_MAX_CHARS
 ) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = { newText ->
-            val lines = newText.lines().size
-            if (newText.length <= maxChars && lines <= maxLines) {
-                onValueChange(newText)
-            }
-        },
-        label = { Text(label) },
-        singleLine = false,
-        minLines = minLines,
-        maxLines = maxLines,
-        modifier = modifier,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.White,
-            unfocusedContainerColor = Color.White,
-            disabledContainerColor = Color.White
-        ),
-        shape = RoundedCornerShape(12.dp)
-    )
+    Column(modifier = modifier) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = { newText ->
+                val lines = newText.lines().size
+                if (newText.length <= maxChars && lines <= maxLines) {
+                    onValueChange(newText)
+                }
+            },
+            label = { Text(label) },
+            singleLine = false,
+            minLines = minLines,
+            maxLines = maxLines,
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                disabledContainerColor = Color.White
+            ),
+            shape = RoundedCornerShape(12.dp)
+        )
+
+        Text(
+            text = "${value.length} / $maxChars",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp),
+            textAlign = TextAlign.End,
+            color = Color.Gray
+        )
+    }
 }
