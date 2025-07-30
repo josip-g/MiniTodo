@@ -37,11 +37,10 @@ fun TodoForm(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        TextField(
+        LimitedTextField(
             value = text,
             onValueChange = { text = it },
-            label = { Text(stringResource(R.string.task_label)) },
-            singleLine = true,
+            label = stringResource(R.string.task_label),
             modifier = Modifier.fillMaxWidth()
         )
 
