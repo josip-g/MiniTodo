@@ -4,17 +4,24 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.josip.minitodo.R
 import com.josip.minitodo.utils.Constants.TEXT_FIELD_MIN_LINES
 import com.josip.minitodo.utils.Constants.TEXT_FIELD_MAX_LINES
 import com.josip.minitodo.utils.Constants.TEXT_FIELD_MAX_CHARS
+import com.josip.minitodo.utils.Constants.EMPTY_STRING
 
 @Composable
 fun LimitedTextField(
@@ -45,7 +52,17 @@ fun LimitedTextField(
                 unfocusedContainerColor = Color.White,
                 disabledContainerColor = Color.White
             ),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
+            trailingIcon = {
+                if (value.isNotEmpty()) {
+                    IconButton(onClick = { onValueChange(EMPTY_STRING) }) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = stringResource(id = R.string.clear_text),
+                        )
+                    }
+                }
+            }
         )
 
         Text(

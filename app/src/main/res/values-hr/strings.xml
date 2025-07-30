@@ -17,6 +17,7 @@
     <string name="delete_task_title">Obrisati zadatak?</string>
     <string name="delete_task_message">Jeste li sigurni da želite obrisati zadatak „%1$s“?</string>
     <string name="add_task">Dodaj zadatak</string>
+    <string name="clear_text">Očistiti tekst</string>
 
     <!-- Note form -->
     <string name="new_note">Nova bilješka</string>

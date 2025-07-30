@@ -17,6 +17,7 @@
     <string name="delete_task_title">Aufgabe löschen?</string>
     <string name="delete_task_message">Möchten Sie die Aufgabe „%1$s“ wirklich löschen?</string>
     <string name="add_task">Aufgabe hinzufügen</string>
+    <string name="clear_text">Text löschen</string>
 
     <!-- Note form -->
     <string name="new_note">Neue Notiz</string>
