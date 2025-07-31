@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
 import com.josip.minitodo.data.Todo
@@ -79,7 +80,10 @@ fun MainScreen(
                     modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (todo.isDone) Color.LightGray.copy(alpha = 0.3f)
+                        else MaterialTheme.colorScheme.surface
+                    )
                 ) {
                     Row(
                         modifier = Modifier
@@ -88,10 +92,23 @@ fun MainScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        // Lijevo: Checkbox
+                        Checkbox(
+                            checked = todo.isDone,
+                            onCheckedChange = { viewModel.toggleTodoDone(todo) }
+                        )
+
+                        // Tekst (precrtan ako je done)
                         Text(
                             text = (if (todo.isImportant) "❗ " else "") + todo.text,
                             maxLines = 1,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 8.dp),
+                            style = if (todo.isDone) MaterialTheme.typography.bodyLarge.copy(
+                                color = Color.Gray,
+                                textDecoration = TextDecoration.LineThrough
+                            ) else MaterialTheme.typography.bodyLarge
                         )
 
                         Row {

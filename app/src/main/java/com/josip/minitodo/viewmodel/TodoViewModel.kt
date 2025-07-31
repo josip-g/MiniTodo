@@ -35,4 +35,11 @@ class TodoViewModel(private val dao: TodoDao) : ViewModel() {
     fun getTodoById(id: Int): Flow<Todo?> {
         return dao.getById(id)
     }
+
+    fun toggleTodoDone(todo: Todo) {
+        viewModelScope.launch {
+            val updatedTodo = todo.copy(isDone = !todo.isDone, updatedAt = System.currentTimeMillis())
+            dao.updateTodo(updatedTodo)
+        }
+    }
 }
