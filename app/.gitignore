@@ -1,1 +1,30 @@
-/build
+# Gradle
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration
+local.properties
+*.keystore
+*.jks
+
+# Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Log/OS datoteke
+*.log
+.DS_Store
+Thumbs.db
+
+# Kotlin/Java
+out/
+bin/
+
+# Cache
+.cxx/
+captures/
+
