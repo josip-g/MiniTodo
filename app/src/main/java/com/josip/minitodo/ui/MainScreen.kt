@@ -10,7 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.NoteAlt
+import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -89,7 +89,7 @@ fun MainScreen(
                     shape = MaterialTheme.shapes.medium,
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = if (todo.isDone) Color.LightGray.copy(alpha = 0.3f)
+                        containerColor = if (todo.isDone) Color(0xFFE0E0E0)
                         else MaterialTheme.colorScheme.surface
                     )
                 ) {
@@ -130,7 +130,7 @@ fun MainScreen(
                                 Icon(
                                     Icons.Default.Delete,
                                     contentDescription = stringResource(R.string.delete_note),
-                                    tint = MaterialTheme.colorScheme.error
+                                    tint = Color.Gray
                                 )
                             }
                         }
@@ -177,7 +177,7 @@ fun MainScreen(
                 .navigationBarsPadding()
         ) {
             Icon(
-                Icons.Default.NoteAlt,
+                Icons.Default.LibraryBooks,
                 contentDescription = stringResource(R.string.add_note)
             )
         }

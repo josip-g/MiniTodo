@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -89,7 +89,7 @@ fun NotesScreen(
                 .padding(bottom = 24.dp)
                 .navigationBarsPadding()
         ) {
-            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_note))
+            Icon(Icons.Default.NoteAdd, contentDescription = stringResource(R.string.add_note))
         }
     }
 }
