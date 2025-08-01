@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
 import com.josip.minitodo.data.Todo
 import com.josip.minitodo.viewmodel.TodoViewModel
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.foundation.gestures.detectTapGestures
 
 @Composable
 fun MainScreen(
@@ -77,7 +79,13 @@ fun MainScreen(
         ) {
             items(todos) { todo ->
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onLongPress = { onEditTodo(todo.id) }
+                            )
+                        },
                     shape = MaterialTheme.shapes.medium,
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                     colors = CardDefaults.cardColors(
@@ -92,13 +100,12 @@ fun MainScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Lijevo: Checkbox
+
                         Checkbox(
                             checked = todo.isDone,
                             onCheckedChange = { viewModel.toggleTodoDone(todo) }
                         )
 
-                        // Tekst (precrtan ako je done)
                         Text(
                             text = (if (todo.isImportant) "❗ " else "") + todo.text,
                             maxLines = 1,
@@ -112,16 +119,6 @@ fun MainScreen(
                         )
 
                         Row {
-                            IconButton(
-                                onClick = { onEditTodo(todo.id) },
-                                modifier = Modifier.size(36.dp)
-                            ) {
-                                Icon(
-                                    Icons.Default.Edit,
-                                    contentDescription = stringResource(R.string.edit_note),
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                            }
 
                             IconButton(
                                 onClick = {
