@@ -75,7 +75,8 @@ fun MainScreen(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 10.dp, top = 5.dp)
         ) {
             items(todos) { todo ->
                 Card(
