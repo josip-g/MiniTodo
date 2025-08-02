@@ -1,4 +1,4 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -9,8 +9,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
-import com.josip.minitodo.data.Todo
-import com.josip.minitodo.utils.LocaleHelper.formatTimestamp
+import com.josip.minitodo.data.model.Todo
+import com.josip.minitodo.common.LocaleHelper.formatTimestamp
 
 @Composable
 fun TodoForm(

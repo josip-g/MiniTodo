@@ -1,4 +1,4 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.dialogs
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button

@@ -1,4 +1,4 @@
-package com.josip.minitodo.ui.theme
+package com.josip.minitodo.ui.design
 
 import androidx.compose.ui.graphics.Color
 

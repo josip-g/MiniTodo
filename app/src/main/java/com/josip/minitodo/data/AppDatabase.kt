@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.josip.minitodo.data.dao.NoteDao
+import com.josip.minitodo.data.dao.TodoDao
+import com.josip.minitodo.data.model.Note
+import com.josip.minitodo.data.model.Todo
 
 @Database(entities = [Todo::class, Note::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {

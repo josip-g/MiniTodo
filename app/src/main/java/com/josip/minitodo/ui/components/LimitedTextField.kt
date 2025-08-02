@@ -1,4 +1,4 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,10 +18,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
-import com.josip.minitodo.utils.Constants.TEXT_FIELD_MIN_LINES
-import com.josip.minitodo.utils.Constants.TEXT_FIELD_MAX_LINES
-import com.josip.minitodo.utils.Constants.TEXT_FIELD_MAX_CHARS
-import com.josip.minitodo.utils.Constants.EMPTY_STRING
+import com.josip.minitodo.common.Constants.TEXT_FIELD_MIN_LINES
+import com.josip.minitodo.common.Constants.TEXT_FIELD_MAX_LINES
+import com.josip.minitodo.common.Constants.TEXT_FIELD_MAX_CHARS
+import com.josip.minitodo.common.Constants.EMPTY_STRING
 
 @Composable
 fun LimitedTextField(

@@ -1,4 +1,4 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +13,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.josip.minitodo.viewmodel.NoteViewModel
+import com.josip.minitodo.viewmodel.note.NoteViewModel
 import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
+import com.josip.minitodo.ui.dialogs.DeleteDialog
+import com.josip.minitodo.ui.components.NoteForm
 
 @Composable
 fun EditNoteScreen(

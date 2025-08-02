@@ -1,4 +1,4 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.josip.minitodo.utils.LocaleHelper
-import com.josip.minitodo.utils.LocaleHelper.getLanguages
+import com.josip.minitodo.common.LocaleHelper
+import com.josip.minitodo.common.LocaleHelper.getLanguages
 
 @Composable
 fun LanguageDialog(

@@ -1,6 +1,7 @@
-package com.josip.minitodo.data
+package com.josip.minitodo.data.dao
 
 import androidx.room.*
+import com.josip.minitodo.data.model.Note
 import kotlinx.coroutines.flow.Flow
 
 @Dao

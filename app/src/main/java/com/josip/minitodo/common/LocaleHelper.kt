@@ -1,11 +1,11 @@
-package com.josip.minitodo.utils
+package com.josip.minitodo.common
 
 import android.content.Context
 import com.josip.minitodo.R
 import java.util.*
 import androidx.core.content.edit
-import com.josip.minitodo.utils.Constants.PREFS_NAME
-import com.josip.minitodo.utils.Constants.KEY_LANGUAGE
+import com.josip.minitodo.common.Constants.PREFS_NAME
+import com.josip.minitodo.common.Constants.KEY_LANGUAGE
 import java.text.SimpleDateFormat
 
 object LocaleHelper {

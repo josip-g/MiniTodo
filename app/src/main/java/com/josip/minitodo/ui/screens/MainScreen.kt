@@ -1,4 +1,4 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,7 +9,6 @@ import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.runtime.*
@@ -21,10 +20,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
-import com.josip.minitodo.data.Todo
-import com.josip.minitodo.viewmodel.TodoViewModel
+import com.josip.minitodo.data.model.Todo
+import com.josip.minitodo.viewmodel.todo.TodoViewModel
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
+import com.josip.minitodo.ui.dialogs.DeleteDialog
+import com.josip.minitodo.ui.dialogs.LanguageDialog
 
 @Composable
 fun MainScreen(

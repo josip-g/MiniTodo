@@ -1,9 +1,9 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
-import com.josip.minitodo.viewmodel.TodoViewModel
+import com.josip.minitodo.viewmodel.todo.TodoViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
+import com.josip.minitodo.ui.components.TodoForm
 
 @Composable
 fun EditTodoScreen(

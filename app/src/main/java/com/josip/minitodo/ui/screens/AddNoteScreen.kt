@@ -1,10 +1,11 @@
-package com.josip.minitodo.ui
+package com.josip.minitodo.ui.screens
 
 import androidx.compose.runtime.Composable
-import com.josip.minitodo.data.Note
-import com.josip.minitodo.viewmodel.NoteViewModel
+import com.josip.minitodo.data.model.Note
+import com.josip.minitodo.viewmodel.note.NoteViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Modifier
+import com.josip.minitodo.ui.components.NoteForm
 
 @Composable
 fun AddNoteScreen(

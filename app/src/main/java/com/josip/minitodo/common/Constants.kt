@@ -1,4 +1,4 @@
-package com.josip.minitodo.utils
+package com.josip.minitodo.common
 
 object Constants {
 

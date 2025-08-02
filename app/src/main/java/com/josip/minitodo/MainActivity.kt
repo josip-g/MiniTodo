@@ -8,9 +8,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import com.josip.minitodo.data.AppDatabase
-import com.josip.minitodo.ui.*
-import com.josip.minitodo.ui.theme.MiniTodoTheme
-import com.josip.minitodo.viewmodel.*
+import com.josip.minitodo.ui.design.MiniTodoTheme
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -18,13 +16,24 @@ import com.google.accompanist.navigation.animation.composable
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.platform.LocalContext
+import com.josip.minitodo.ui.screens.AddNoteScreen
+import com.josip.minitodo.ui.screens.AddTodoScreen
+import com.josip.minitodo.ui.screens.EditNoteScreen
+import com.josip.minitodo.ui.screens.EditTodoScreen
+import com.josip.minitodo.ui.screens.MainScreen
+import com.josip.minitodo.ui.screens.NotesScreen
+import com.josip.minitodo.common.LocaleHelper
+import com.josip.minitodo.viewmodel.note.NoteViewModel
+import com.josip.minitodo.viewmodel.note.NoteViewModelFactory
+import com.josip.minitodo.viewmodel.todo.TodoViewModel
+import com.josip.minitodo.viewmodel.todo.TodoViewModelFactory
 import java.util.*
 
 @OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
 
     override fun attachBaseContext(newBase: Context) {
-        val context = com.josip.minitodo.utils.LocaleHelper.applySavedLocale(newBase)
+        val context = com.josip.minitodo.common.LocaleHelper.applySavedLocale(newBase)
         super.attachBaseContext(context)
     }
 
@@ -38,9 +47,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val context = LocalContext.current
-            val prefsLang = com.josip.minitodo.utils.LocaleHelper.getSavedLanguage(this)
+            val prefsLang = com.josip.minitodo.common.LocaleHelper.getSavedLanguage(this)
             var selectedLocale by remember { mutableStateOf(Locale(prefsLang)) }
-            val localizedContext = com.josip.minitodo.utils.LocaleHelper.wrapWithLocale(this, selectedLocale)
+            val localizedContext = com.josip.minitodo.common.LocaleHelper.wrapWithLocale(this, selectedLocale)
 
             val navController = rememberNavController()
             val viewModel: TodoViewModel = viewModel(factory = factory)
@@ -67,7 +76,7 @@ class MainActivity : ComponentActivity() {
                                 currentLang = selectedLocale.language,
                                 onLanguageChange = { newLang ->
                                     selectedLocale = Locale(newLang)
-                                    com.josip.minitodo.utils.LocaleHelper.saveLanguage(context, newLang)
+                                    LocaleHelper.saveLanguage(context, newLang)
                                 }
                             )
                         }

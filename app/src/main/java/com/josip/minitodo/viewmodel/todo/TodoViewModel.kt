@@ -1,9 +1,9 @@
-package com.josip.minitodo.viewmodel
+package com.josip.minitodo.viewmodel.todo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.josip.minitodo.data.Todo
-import com.josip.minitodo.data.TodoDao
+import com.josip.minitodo.data.model.Todo
+import com.josip.minitodo.data.dao.TodoDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
