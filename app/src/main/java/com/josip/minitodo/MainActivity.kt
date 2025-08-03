@@ -23,6 +23,7 @@ import com.josip.minitodo.ui.screens.EditTaskScreen
 import com.josip.minitodo.ui.screens.MainScreen
 import com.josip.minitodo.ui.screens.NotesScreen
 import com.josip.minitodo.common.LocaleHelper
+import com.josip.minitodo.ui.navigation.Screen
 import com.josip.minitodo.viewmodel.note.NoteViewModel
 import com.josip.minitodo.viewmodel.note.NoteViewModelFactory
 import com.josip.minitodo.viewmodel.task.TaskViewModel
@@ -61,18 +62,18 @@ class MainActivity : ComponentActivity() {
                 MiniTodoTheme {
                     AnimatedNavHost(
                         navController,
-                        startDestination = "main",
+                        startDestination = Screen.Main.route,
                         enterTransition = { slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300)) + fadeIn() },
                         exitTransition = { slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300)) + fadeOut() },
                         popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300)) + fadeIn() },
                         popExitTransition = { slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300)) + fadeOut() }
                     ) {
-                        composable("main") {
+                        composable(Screen.Main.route) {
                             MainScreen(
                                 viewModel = viewModel,
-                                onEditTask = { taskId -> navController.navigate("edit/$taskId") },
-                                onAddTask = { navController.navigate("add") },
-                                onGetNotes = { navController.navigate("getnotes") },
+                                onEditTask = { taskId -> navController.navigate(Screen.EditTask.createRoute(taskId)) },
+                                onAddTask = { navController.navigate(Screen.AddTask.route) },
+                                onGetNotes = { navController.navigate(Screen.Notes.route) },
                                 currentLang = selectedLocale.language,
                                 onLanguageChange = { newLang ->
                                     selectedLocale = Locale(newLang)
@@ -82,34 +83,34 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(
-                            "edit/{taskId}",
+                            Screen.EditTask.route,
                             arguments = listOf(navArgument("taskId") { type = NavType.IntType })
                         ) { backStackEntry ->
                             val taskId = backStackEntry.arguments?.getInt("taskId") ?: return@composable
                             EditTaskScreen(taskId, viewModel) { navController.popBackStack() }
                         }
 
-                        composable("add") {
+                        composable(Screen.AddTask.route) {
                             AddTaskScreen(viewModel) { navController.popBackStack() }
                         }
 
-                        composable("addnote") {
+                        composable(Screen.AddNote.route) {
                             AddNoteScreen(viewModelNote) { navController.popBackStack() }
                         }
 
                         composable(
-                            "editnote/{noteId}",
+                            Screen.EditNote.route,
                             arguments = listOf(navArgument("noteId") { type = NavType.IntType })
                         ) { backStackEntry ->
                             val noteId = backStackEntry.arguments?.getInt("noteId") ?: return@composable
                             EditNoteScreen(noteId, viewModelNote) { navController.popBackStack() }
                         }
 
-                        composable("getnotes") {
+                        composable(Screen.Notes.route) {
                             NotesScreen(
                                 viewModelNotes = viewModelNote,
-                                onAddNote = { navController.navigate("addnote") },
-                                onEditNote = { noteId -> navController.navigate("editnote/$noteId") },
+                                onAddNote = { navController.navigate(Screen.AddNote.route) },
+                                onEditNote = { noteId -> navController.navigate(Screen.EditNote.createRoute(noteId)) },
                             )
                         }
                     }
