@@ -15,4 +15,5 @@ object Constants {
     const val TEXT_FIELD_MAX_CHARS = 80
 
     const val DATE_TIME_FORMAT = "dd.MM.yyyy. HH:mm"
+    const val NAV_ANIMATION_DURATION = 300
 }
