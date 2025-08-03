@@ -2,13 +2,15 @@ package com.josip.minitodo.ui.navigation
 
 sealed class Screen(val route: String) {
     object Main : Screen("main")
+
     object AddTask : Screen("add_task")
-    object EditTask : Screen("edit_task/{taskId}") {
+    object EditTask : Screen("edit_task/{${NavArgs.TASK_ID}}") {
         fun createRoute(taskId: Int) = "edit_task/$taskId"
     }
+
     object Notes : Screen("notes")
     object AddNote : Screen("add_note")
-    object EditNote : Screen("edit_note/{noteId}") {
+    object EditNote : Screen("edit_note/{${NavArgs.NOTE_ID}}") {
         fun createRoute(noteId: Int) = "edit_note/$noteId"
     }
 }

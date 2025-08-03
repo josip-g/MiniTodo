@@ -1,18 +1,12 @@
 package com.josip.minitodo.ui.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.josip.minitodo.common.Constants.NAV_ANIMATION_DURATION
 import com.josip.minitodo.ui.screens.*
 import com.josip.minitodo.viewmodel.note.NoteViewModel
 import com.josip.minitodo.viewmodel.task.TaskViewModel
@@ -30,16 +24,16 @@ fun MiniTodoNavGraph(
     AnimatedNavHost(
         navController = navController,
         startDestination = Screen.Main.route,
-        enterTransition = { slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(NAV_ANIMATION_DURATION)) + fadeIn() },
-        exitTransition = { slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(NAV_ANIMATION_DURATION)) + fadeOut() },
-        popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(NAV_ANIMATION_DURATION)) + fadeIn() },
-        popExitTransition = { slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(NAV_ANIMATION_DURATION)) + fadeOut() }
+        enterTransition = { NavigationTransitions.enter },
+        exitTransition = { NavigationTransitions.exit },
+        popEnterTransition = { NavigationTransitions.popEnter },
+        popExitTransition = { NavigationTransitions.popExit }
     ) {
         composable(Screen.Main.route) {
             MainScreen(
                 viewModel = taskViewModel,
-                onEditTask = { taskId -> navController.navigate(Screen.EditTask.createRoute(taskId)) },
-                onAddTask = { navController.navigate(Screen.AddTask.route) },
+                onEditTask = { taskId -> navController.navigateToEditTask(taskId) },
+                onAddTask = { navController.navigateToAddTask() },
                 onGetNotes = { navController.navigate(Screen.Notes.route) },
                 currentLang = selectedLocale.language,
                 onLanguageChange = { newLang -> onLangChange(newLang) }
@@ -73,8 +67,8 @@ fun MiniTodoNavGraph(
         composable(Screen.Notes.route) {
             NotesScreen(
                 viewModelNotes = noteViewModel,
-                onAddNote = { navController.navigate(Screen.AddNote.route) },
-                onEditNote = { noteId -> navController.navigate(Screen.EditNote.createRoute(noteId)) },
+                onAddNote = { navController.navigateToAddNote() },
+                onEditNote = { noteId -> navController.navigateToEditNote(noteId) },
             )
         }
     }
