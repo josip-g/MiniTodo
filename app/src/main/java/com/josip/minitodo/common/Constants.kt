@@ -13,4 +13,6 @@ object Constants {
     const val TEXT_FIELD_MIN_LINES = 1
     const val TEXT_FIELD_MAX_LINES = 3
     const val TEXT_FIELD_MAX_CHARS = 80
+
+    const val DATE_TIME_FORMAT = "dd.MM.yyyy. HH:mm"
 }
