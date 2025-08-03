@@ -7,13 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.josip.minitodo.data.dao.NoteDao
-import com.josip.minitodo.data.dao.TodoDao
+import com.josip.minitodo.data.dao.TaskDao
 import com.josip.minitodo.data.model.Note
-import com.josip.minitodo.data.model.Todo
+import com.josip.minitodo.data.model.Task
 
-@Database(entities = [Todo::class, Note::class], version = 2)
+@Database(entities = [Task::class, Note::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun todoDao(): TodoDao
+    abstract fun taskDao(): TaskDao
     abstract fun noteDao(): NoteDao
 
     companion object {
@@ -26,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build().also { INSTANCE = it }
             }
         }
@@ -35,6 +35,12 @@ abstract class AppDatabase : RoomDatabase() {
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE Todo ADD COLUMN isDone INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE Todo RENAME TO task")
             }
         }
     }

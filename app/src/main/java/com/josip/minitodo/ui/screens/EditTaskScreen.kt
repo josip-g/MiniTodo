@@ -3,7 +3,7 @@ package com.josip.minitodo.ui.screens
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
-import com.josip.minitodo.viewmodel.todo.TodoViewModel
+import com.josip.minitodo.viewmodel.task.TaskViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -14,15 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
-import com.josip.minitodo.ui.components.TodoForm
+import com.josip.minitodo.ui.components.TaskForm
 
 @Composable
-fun EditTodoScreen(
-    todoId: Int,
-    viewModel: TodoViewModel,
+fun EditTaskScreen(
+    taskId: Int,
+    viewModel: TaskViewModel,
     onNavigateBack: () -> Unit
 ) {
-    val todo by viewModel.getTodoById(todoId).collectAsState(initial = null)
+    val todo by viewModel.getTaskById(taskId).collectAsState(initial = null)
 
     if (todo == null) {
 
@@ -46,10 +46,10 @@ fun EditTodoScreen(
                 .statusBarsPadding()
                 .navigationBarsPadding()
         ) {
-            TodoForm(
-                initialTodo = it,
+            TaskForm(
+                initialTask = it,
                 onSubmit = { updatedTodo ->
-                    viewModel.updateTodo(updatedTodo)
+                    viewModel.updateTask(updatedTodo)
                     onNavigateBack()
                 },
                 onCancel = onNavigateBack

@@ -20,8 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
-import com.josip.minitodo.data.model.Todo
-import com.josip.minitodo.viewmodel.todo.TodoViewModel
+import com.josip.minitodo.data.model.Task
+import com.josip.minitodo.viewmodel.task.TaskViewModel
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
 import com.josip.minitodo.ui.dialogs.DeleteDialog
@@ -29,16 +29,16 @@ import com.josip.minitodo.ui.dialogs.LanguageDialog
 
 @Composable
 fun MainScreen(
-    viewModel: TodoViewModel,
-    onEditTodo: (Int) -> Unit,
-    onAddTodo: () -> Unit,
+    viewModel: TaskViewModel,
+    onEditTask: (Int) -> Unit,
+    onAddTask: () -> Unit,
     onGetNotes: () -> Unit,
     currentLang: String,
     onLanguageChange: (String) -> Unit
 ) {
-    val todos by viewModel.todos.collectAsState()
+    val tasks by viewModel.tasks.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
-    var taskToDelete by remember { mutableStateOf<Todo?>(null) }
+    var taskToDelete by remember { mutableStateOf<Task?>(null) }
     var showLanguageDialog by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -71,7 +71,7 @@ fun MainScreen(
             }
         }
 
-        // Todos List
+        // Tasks List
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
@@ -79,19 +79,19 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(bottom = 10.dp, top = 5.dp)
         ) {
-            items(todos) { todo ->
+            items(tasks) { task ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .pointerInput(Unit) {
                             detectTapGestures(
-                                onLongPress = { onEditTodo(todo.id) }
+                                onLongPress = { onEditTask(task.id) }
                             )
                         },
                     shape = MaterialTheme.shapes.medium,
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = if (todo.isDone) Color(0xFFE0E0E0)
+                        containerColor = if (task.isDone) Color(0xFFE0E0E0)
                         else MaterialTheme.colorScheme.surface
                     )
                 ) {
@@ -104,17 +104,17 @@ fun MainScreen(
                     ) {
 
                         Checkbox(
-                            checked = todo.isDone,
-                            onCheckedChange = { viewModel.toggleTodoDone(todo) }
+                            checked = task.isDone,
+                            onCheckedChange = { viewModel.toggleTaskDone(task) }
                         )
 
                         Text(
-                            text = (if (todo.isImportant) "❗ " else "") + todo.text,
+                            text = (if (task.isImportant) "❗ " else "") + task.text,
                             maxLines = 1,
                             modifier = Modifier
                                 .weight(1f)
                                 .padding(start = 8.dp),
-                            style = if (todo.isDone) MaterialTheme.typography.bodyLarge.copy(
+                            style = if (task.isDone) MaterialTheme.typography.bodyLarge.copy(
                                 color = Color.Gray,
                                 textDecoration = TextDecoration.LineThrough
                             ) else MaterialTheme.typography.bodyLarge
@@ -124,7 +124,7 @@ fun MainScreen(
 
                             IconButton(
                                 onClick = {
-                                    taskToDelete = todo
+                                    taskToDelete = task
                                     showDeleteDialog = true
                                 },
                                 modifier = Modifier.size(36.dp)
@@ -159,7 +159,7 @@ fun MainScreen(
     // Floating buttons
     Box(modifier = Modifier.fillMaxSize()) {
         FloatingActionButton(
-            onClick = onAddTodo,
+            onClick = onAddTask,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 24.dp, end = 24.dp)
@@ -191,7 +191,7 @@ fun MainScreen(
                 confirmButtonText = stringResource(R.string.button_delete),
                 dismissButtonText = stringResource(R.string.button_cancel),
                 onConfirm = {
-                    viewModel.deleteTodo(taskToDelete!!)
+                    viewModel.deleteTask(taskToDelete!!)
                     showDeleteDialog = false
                     taskToDelete = null
                 },

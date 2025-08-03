@@ -9,19 +9,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
-import com.josip.minitodo.data.model.Todo
+import com.josip.minitodo.data.model.Task
 import com.josip.minitodo.common.LocaleHelper.formatTimestamp
 
 @Composable
-fun TodoForm(
-    initialTodo: Todo? = null,
-    onSubmit: (Todo) -> Unit,
+fun TaskForm(
+    initialTask: Task? = null,
+    onSubmit: (Task) -> Unit,
     onCancel: () -> Unit
 ) {
-    var text by remember { mutableStateOf(initialTodo?.text ?: "") }
-    var important by remember { mutableStateOf(initialTodo?.isImportant ?: false) }
-    val createdAt by remember { mutableStateOf(initialTodo?.createdAt ?: System.currentTimeMillis()) }
-    val updatedAt by remember { mutableStateOf(initialTodo?.updatedAt ?: System.currentTimeMillis()) }
+    var text by remember { mutableStateOf(initialTask?.text ?: "") }
+    var important by remember { mutableStateOf(initialTask?.isImportant ?: false) }
+    val createdAt by remember { mutableStateOf(initialTask?.createdAt ?: System.currentTimeMillis()) }
+    val updatedAt by remember { mutableStateOf(initialTask?.updatedAt ?: System.currentTimeMillis()) }
 
     Column(
         modifier = Modifier
@@ -31,7 +31,7 @@ fun TodoForm(
             .padding(16.dp)
     ) {
         Text(
-            text = if (initialTodo == null) stringResource(R.string.new_task) else stringResource(R.string.edit_task),
+            text = if (initialTask == null) stringResource(R.string.new_task) else stringResource(R.string.edit_task),
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -78,17 +78,17 @@ fun TodoForm(
                 onClick = {
                     if (text.isNotBlank()) {
                         val now = System.currentTimeMillis()
-                        val todo = initialTodo?.copy(
+                        val task = initialTask?.copy(
                             text = text,
                             isImportant = important,
                             updatedAt = now
-                        ) ?: Todo(
+                        ) ?: Task(
                             text = text,
                             isImportant = important,
                             createdAt = now,
                             updatedAt = now
                         )
-                        onSubmit(todo)
+                        onSubmit(task)
                     }
                 },
                 modifier = Modifier.weight(1f),

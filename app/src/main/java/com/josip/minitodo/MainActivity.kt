@@ -17,42 +17,42 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.platform.LocalContext
 import com.josip.minitodo.ui.screens.AddNoteScreen
-import com.josip.minitodo.ui.screens.AddTodoScreen
+import com.josip.minitodo.ui.screens.AddTaskScreen
 import com.josip.minitodo.ui.screens.EditNoteScreen
-import com.josip.minitodo.ui.screens.EditTodoScreen
+import com.josip.minitodo.ui.screens.EditTaskScreen
 import com.josip.minitodo.ui.screens.MainScreen
 import com.josip.minitodo.ui.screens.NotesScreen
 import com.josip.minitodo.common.LocaleHelper
 import com.josip.minitodo.viewmodel.note.NoteViewModel
 import com.josip.minitodo.viewmodel.note.NoteViewModelFactory
-import com.josip.minitodo.viewmodel.todo.TodoViewModel
-import com.josip.minitodo.viewmodel.todo.TodoViewModelFactory
+import com.josip.minitodo.viewmodel.task.TaskViewModel
+import com.josip.minitodo.viewmodel.task.TaskViewModelFactory
 import java.util.*
 
 @OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
 
     override fun attachBaseContext(newBase: Context) {
-        val context = com.josip.minitodo.common.LocaleHelper.applySavedLocale(newBase)
+        val context = LocaleHelper.applySavedLocale(newBase)
         super.attachBaseContext(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val dao = AppDatabase.getDatabase(this).todoDao()
+        val dao = AppDatabase.getDatabase(this).taskDao()
         val daoNote = AppDatabase.getDatabase(this).noteDao()
-        val factory = TodoViewModelFactory(dao)
+        val factory = TaskViewModelFactory(dao)
         val factoryNote = NoteViewModelFactory(daoNote)
 
         setContent {
             val context = LocalContext.current
-            val prefsLang = com.josip.minitodo.common.LocaleHelper.getSavedLanguage(this)
+            val prefsLang = LocaleHelper.getSavedLanguage(this)
             var selectedLocale by remember { mutableStateOf(Locale(prefsLang)) }
-            val localizedContext = com.josip.minitodo.common.LocaleHelper.wrapWithLocale(this, selectedLocale)
+            val localizedContext = LocaleHelper.wrapWithLocale(this, selectedLocale)
 
             val navController = rememberNavController()
-            val viewModel: TodoViewModel = viewModel(factory = factory)
+            val viewModel: TaskViewModel = viewModel(factory = factory)
             val viewModelNote: NoteViewModel = viewModel(factory = factoryNote)
 
             CompositionLocalProvider(
@@ -70,8 +70,8 @@ class MainActivity : ComponentActivity() {
                         composable("main") {
                             MainScreen(
                                 viewModel = viewModel,
-                                onEditTodo = { todoId -> navController.navigate("edit/$todoId") },
-                                onAddTodo = { navController.navigate("add") },
+                                onEditTask = { taskId -> navController.navigate("edit/$taskId") },
+                                onAddTask = { navController.navigate("add") },
                                 onGetNotes = { navController.navigate("getnotes") },
                                 currentLang = selectedLocale.language,
                                 onLanguageChange = { newLang ->
@@ -82,15 +82,15 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(
-                            "edit/{todoId}",
-                            arguments = listOf(navArgument("todoId") { type = NavType.IntType })
+                            "edit/{taskId}",
+                            arguments = listOf(navArgument("taskId") { type = NavType.IntType })
                         ) { backStackEntry ->
-                            val todoId = backStackEntry.arguments?.getInt("todoId") ?: return@composable
-                            EditTodoScreen(todoId, viewModel) { navController.popBackStack() }
+                            val taskId = backStackEntry.arguments?.getInt("taskId") ?: return@composable
+                            EditTaskScreen(taskId, viewModel) { navController.popBackStack() }
                         }
 
                         composable("add") {
-                            AddTodoScreen(viewModel) { navController.popBackStack() }
+                            AddTaskScreen(viewModel) { navController.popBackStack() }
                         }
 
                         composable("addnote") {

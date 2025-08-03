@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.josip.minitodo.ui.components.TodoForm
-import com.josip.minitodo.viewmodel.todo.TodoViewModel
+import com.josip.minitodo.ui.components.TaskForm
+import com.josip.minitodo.viewmodel.task.TaskViewModel
 
 @Composable
-fun AddTodoScreen(
-    viewModel: TodoViewModel,
+fun AddTaskScreen(
+    viewModel: TaskViewModel,
     onNavigateBack: () -> Unit
 ) {
     Box(
@@ -20,9 +20,9 @@ fun AddTodoScreen(
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
-        TodoForm(
+        TaskForm(
             onSubmit = { newTodo ->
-                viewModel.addTodo(
+                viewModel.addTask(
                     newTodo.text,
                     newTodo.isImportant,
                     newTodo.createdAt,

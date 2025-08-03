@@ -1,23 +1,23 @@
 package com.josip.minitodo.data.dao
 
 import androidx.room.*
-import com.josip.minitodo.data.model.Todo
+import com.josip.minitodo.data.model.Task
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface TodoDao {
-    @Query("SELECT * FROM Todo ORDER BY id DESC")
-    fun getAllTodos(): Flow<List<Todo>>
+interface TaskDao {
+    @Query("SELECT * FROM Task ORDER BY id DESC")
+    fun getAllTasks(): Flow<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTodo(todo: Todo)
+    suspend fun insertTask(task: Task)
 
     @Update
-    suspend fun updateTodo(todo: Todo)
+    suspend fun updateTask(task: Task)
 
     @Delete
-    suspend fun deleteTodo(todo: Todo)
+    suspend fun deleteTask(task: Task)
 
-    @Query("SELECT * FROM Todo WHERE id = :id")
-    fun getById(id: Int): Flow<Todo?>
+    @Query("SELECT * FROM Task WHERE id = :id")
+    fun getById(id: Int): Flow<Task?>
 }
