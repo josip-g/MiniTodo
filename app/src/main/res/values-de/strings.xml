@@ -18,6 +18,7 @@
     <string name="delete_task_message">Möchten Sie die Aufgabe „%1$s“ wirklich löschen?</string>
     <string name="add_task">Aufgabe hinzufügen</string>
     <string name="clear_text">Text löschen</string>
+    <string name="no_tasks_message">Sie haben noch keine Aufgaben.</string>
 
     <!-- Note form -->
     <string name="new_note">Neue Notiz</string>
@@ -27,6 +28,7 @@
     <string name="add_note">Notiz hinzufügen</string>
     <string name="delete_note_title">Notiz löschen?</string>
     <string name="delete_note_message">Möchten Sie diese Notiz wirklich löschen?</string>
+    <string name="no_notes_message">Sie haben noch keine Notizen.</string>
 
     <!-- Language selection -->
     <string name="language">Sprache</string>

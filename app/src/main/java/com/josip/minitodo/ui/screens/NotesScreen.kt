@@ -32,6 +32,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
 import androidx.compose.ui.graphics.Color
+import com.josip.minitodo.ui.components.CustomLoadingSpinner
+import androidx.compose.foundation.layout.size
 
 @Composable
 fun NotesScreen(
@@ -39,42 +41,75 @@ fun NotesScreen(
     onAddNote: () -> Unit,
     onEditNote: (Int) -> Unit,
 ) {
-    val notes by viewModelNotes.notes.collectAsState()
+    val uiState by viewModelNotes.uiState.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Scrollable list of notes
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp)
-                .statusBarsPadding(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(notes) { note ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)
-                        .pointerInput(Unit) {
-                            detectTapGestures(
-                                onLongPress = {
-                                    onEditNote(note.id)
-                                }
-                            )
-                        },
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFFFF9C4)
-                    ),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        when {
+
+            uiState.isLoading -> {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = note.content,
-                            maxLines = 10,
-                            style = MaterialTheme.typography.bodyMedium,
-                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
+                    CustomLoadingSpinner(
+                        modifier = Modifier.size(64.dp),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+
+            uiState.notes.isEmpty() -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(R.string.no_notes_message),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            }
+
+            else -> {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp)
+                        .statusBarsPadding(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(uiState.notes) { note ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp)
+                                .pointerInput(Unit) {
+                                    detectTapGestures(
+                                        onLongPress = {
+                                            onEditNote(note.id)
+                                        }
+                                    )
+                                },
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0xFFFFF9C4)
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text(
+                                    text = note.content,
+                                    maxLines = 10,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                            }
+                        }
                     }
                 }
             }

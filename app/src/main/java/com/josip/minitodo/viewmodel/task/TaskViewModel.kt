@@ -4,14 +4,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.josip.minitodo.data.dao.TaskDao
 import com.josip.minitodo.data.model.Task
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+data class TaskUiState(
+    val isLoading: Boolean = true,
+    val tasks: List<Task> = emptyList()
+)
+
 class TaskViewModel(private val dao: TaskDao) : ViewModel() {
-    val tasks = dao.getAllTasks()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    private val _uiState = MutableStateFlow(TaskUiState())
+    val uiState: StateFlow<TaskUiState> = _uiState
+
+    init {
+        viewModelScope.launch {
+            dao.getAllTasks().collect { list ->
+                _uiState.value = TaskUiState(
+                    isLoading = false,
+                    tasks = list
+                )
+            }
+        }
+    }
 
     fun addTask(text: String, important: Boolean, createdAt: Long, updatedAt: Long) {
         viewModelScope.launch {
@@ -32,9 +48,7 @@ class TaskViewModel(private val dao: TaskDao) : ViewModel() {
         }
     }
 
-    fun getTaskById(id: Int): Flow<Task?> {
-        return dao.getById(id)
-    }
+    fun getTaskById(id: Int) = dao.getById(id)
 
     fun toggleTaskDone(task: Task) {
         viewModelScope.launch {

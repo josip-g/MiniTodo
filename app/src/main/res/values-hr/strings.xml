@@ -18,6 +18,7 @@
     <string name="delete_task_message">Jeste li sigurni da želite obrisati zadatak „%1$s“?</string>
     <string name="add_task">Dodaj zadatak</string>
     <string name="clear_text">Očistiti tekst</string>
+    <string name="no_tasks_message">Nemate dodan nijedan zadatak.</string>
 
     <!-- Note form -->
     <string name="new_note">Nova bilješka</string>
@@ -27,6 +28,7 @@
     <string name="add_note">Dodaj bilješku</string>
     <string name="delete_note_title">Obrisati bilješku?</string>
     <string name="delete_note_message">Jeste li sigurni da želite obrisati ovu bilješku?</string>
+    <string name="no_notes_message">Nemate dodanu nijednu bilješku.</string>
 
     <!-- Language selection -->
     <string name="language">Jezik</string>
