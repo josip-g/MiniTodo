@@ -5,11 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.material3.Card
@@ -33,7 +30,12 @@ import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
 import androidx.compose.ui.graphics.Color
 import com.josip.minitodo.ui.components.CustomLoadingSpinner
+import com.josip.minitodo.ui.components.StaggeredVerticalGrid
 import androidx.compose.foundation.layout.size
+import com.josip.minitodo.common.Constants.DATE_TIME_FORMAT
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun NotesScreen(
@@ -76,28 +78,22 @@ fun NotesScreen(
             }
 
             else -> {
-                LazyColumn(
+                StaggeredVerticalGrid(
+                    maxColumnWidth = 200.dp,
                     modifier = Modifier
-                        .fillMaxSize()
                         .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 96.dp)
-                        .statusBarsPadding(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                        .statusBarsPadding()
                 ) {
-                    items(uiState.notes) { note ->
+                    uiState.notes.forEach { note ->
                         Card(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 4.dp)
+                                .padding(4.dp)
                                 .pointerInput(Unit) {
                                     detectTapGestures(
-                                        onLongPress = {
-                                            onEditNote(note.id)
-                                        }
+                                        onLongPress = { onEditNote(note.id) }
                                     )
                                 },
-                            colors = CardDefaults.cardColors(
-                                containerColor = Color(0xFFFFF9C4)
-                            ),
+                            colors = CardDefaults.cardColors(containerColor = Color(0xFFD6F5D6)),
                             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
@@ -107,6 +103,16 @@ fun NotesScreen(
                                     style = MaterialTheme.typography.bodyMedium,
                                     overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                                 )
+
+                                Text(
+                                    text = SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault())
+                                        .format(Date(note.updatedAt)),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f),
+                                    modifier = Modifier.padding(top = 4.dp)
+                                )
+
                                 Spacer(modifier = Modifier.height(4.dp))
                             }
                         }
