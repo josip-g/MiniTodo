@@ -3,8 +3,6 @@ package com.josip.minitodo.ui.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,6 +16,10 @@ import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
 import com.josip.minitodo.ui.dialogs.DeleteDialog
 import com.josip.minitodo.ui.components.NoteForm
+import com.josip.minitodo.ui.components.CustomLoadingSpinner
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun EditNoteScreen(
@@ -36,7 +38,10 @@ fun EditNoteScreen(
                 .statusBarsPadding(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            CustomLoadingSpinner(
+                modifier = Modifier.size(64.dp),
+                color = MaterialTheme.colorScheme.primary
+            )
         }
         return
     }
@@ -75,6 +80,9 @@ fun EditNoteScreen(
             )
         }
     } ?: run {
-        Text(stringResource(R.string.loading))
+        CustomLoadingSpinner(
+            modifier = Modifier.size(64.dp),
+            color = MaterialTheme.colorScheme.primary
+        )
     }
 }
