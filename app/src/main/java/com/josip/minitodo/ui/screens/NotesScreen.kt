@@ -28,11 +28,11 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.res.stringResource
 import com.josip.minitodo.R
-import androidx.compose.ui.graphics.Color
 import com.josip.minitodo.ui.components.CustomLoadingSpinner
 import com.josip.minitodo.ui.components.StaggeredVerticalGrid
 import androidx.compose.foundation.layout.size
 import com.josip.minitodo.common.Constants.DATE_TIME_FORMAT
+import com.josip.minitodo.ui.design.NoteCardCeladon
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -93,7 +93,7 @@ fun NotesScreen(
                                         onLongPress = { onEditNote(note.id) }
                                     )
                                 },
-                            colors = CardDefaults.cardColors(containerColor = Color(0xFFD6F5D6)),
+                            colors = CardDefaults.cardColors(containerColor = NoteCardCeladon),
                             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
