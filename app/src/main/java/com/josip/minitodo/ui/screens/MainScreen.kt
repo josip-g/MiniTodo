@@ -1,13 +1,18 @@
 package com.josip.minitodo.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddTask
+import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -17,8 +22,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.josip.minitodo.R
 import com.josip.minitodo.data.model.Task
+import com.josip.minitodo.ui.components.CustomFAB
 import com.josip.minitodo.ui.components.MainHeader
-import com.josip.minitodo.ui.components.MainScreenFABs
 import com.josip.minitodo.ui.components.TaskCard
 import com.josip.minitodo.ui.components.CustomLoadingSpinner
 import com.josip.minitodo.ui.dialogs.DeleteDialog
@@ -97,7 +102,27 @@ fun MainScreen(
         }
     }
 
-    MainScreenFABs(onAddTask, onGetNotes)
+    Box(modifier = Modifier.fillMaxSize()) {
+        CustomFAB(
+            onClick = onGetNotes,
+            icon = Icons.Default.LibraryBooks,
+            contentDescription = "Get notes",
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(bottom = 64.dp, start = 24.dp)
+                .navigationBarsPadding()
+        )
+
+        CustomFAB(
+            onClick = onAddTask,
+            icon = Icons.Default.AddTask,
+            contentDescription = "Add task",
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 64.dp, end = 24.dp)
+                .navigationBarsPadding()
+        )
+    }
 
     if (showLanguageDialog) {
         LanguageDialog(
